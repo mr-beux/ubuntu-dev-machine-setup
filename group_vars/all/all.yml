@@ -3,5 +3,6 @@
 laptop_mode: True              # True => this device is a laptop computer
 virtual_machine_mode: False    # False => this device os is running on bare metal
 local_username: False          # This is the primary username used when logging in to the desktop
+repo_manager_update_cache_valid_time: 3600 #Time in seconds before refreshing cache
 
 ...

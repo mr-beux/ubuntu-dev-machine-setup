@@ -25,7 +25,7 @@
 - name: Only run "update_cache=yes" if the last one is more than "{{ yum_update_cache_valid_time }}" seconds ago
   apt:
     update_cache: yes
-    cache_valid_time: "{{ yum_update_cache_valid_time }}"
+    cache_valid_time: "{{ repo_manager_update_cache_valid_time }}"
 
 - name: Remplace mount /tmp on tmpfs
   block:
@@ -111,7 +111,7 @@
   package:
     name: "{{ base_archiving_tools_gnome }}"
     state: present
-  when: (ansible_env.XDG_CURRENT_DESKTOP == "ubuntu:GNOME")
+  when: (ansible_env.XDG_CURRENT_DESKTOP == "ubuntu:GNOME"')
 
 - name: Install productivity tools
   package:
@@ -132,7 +132,7 @@
   package:
     name: "{{ base_system_tools_gnome }}"
     state: present
-  when: (ansible_env.XDG_CURRENT_DESKTOP == "ubuntu:GNOME")
+  when: (ansible_env.XDG_CURRENT_DESKTOP == "ubuntu:GNOME"')
 
 - name: Install system tools for laptop
   package:
@@ -154,7 +154,7 @@
   package:
     name: "{{ base_developer_tools_gnome }}"
     state: present
-  when: (ansible_env.XDG_CURRENT_DESKTOP == "ubuntu:GNOME")
+  when: (ansible_env.XDG_CURRENT_DESKTOP == "ubuntu:GNOME"')
 
 # Fix for bat syntax highlighting tool; Ubuntu packages it as batcat instead of just bat
 - name: Create symlink for bat
@@ -200,7 +200,7 @@
   package:
     name: "{{ base_media_tools_gnome }}"
     state: present
-  when: (ansible_env.XDG_CURRENT_DESKTOP == "ubuntu:GNOME")
+  when: (ansible_env.XDG_CURRENT_DESKTOP == "ubuntu:GNOME"')
 
 - name: Install Languages packages
   package:
