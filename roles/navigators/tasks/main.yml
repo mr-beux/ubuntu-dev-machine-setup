@@ -1,4 +1,7 @@
 ---
+  
+dependencies:
+  - role: alzadude.firefox-addon
 
 - name: add googlechrome apt key
   apt_key:
