@@ -4,9 +4,10 @@ navigators_googlechrome_repo: "deb [arch=amd64] https://dl.google.com/linux/chro
 navigators_googlechrome_apt_key: "https://dl.google.com/linux/linux_signing_key.pub"
 
 navigators_internet_packages:
-  - filezilla                           #Full-featured graphical FTP/FTPS/SFTP client
   - chromium-browser                    #Chromium web browser, open-source version of Chrome
+  - libxml2-utils                       #XML utilities, mandatory for ansible-firefox-addon module
   - firefox                             #Safe and easy web browser from Mozilla
+  - filezilla                           #Full-featured graphical FTP/FTPS/SFTP client
 
 #Addons list for tunning Firefox
 navigators_firefox_addons_url:
