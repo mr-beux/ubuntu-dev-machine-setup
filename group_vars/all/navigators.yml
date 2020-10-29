@@ -8,7 +8,8 @@ navigators_internet_packages:
   - chromium-browser                    #Chromium web browser, open-source version of Chrome
   - firefox                             #Safe and easy web browser from Mozilla
 
-navigators_firefox_addons_url:                     #Addons list for tunning Firefox
+#Addons list for tunning Firefox
+navigators_firefox_addons_url:
   - https://addons.mozilla.org/fr/firefox/addon/ublock-origin
   - https://addons.mozilla.org/fr/firefox/addon/video-downloadhelper
   - https://addons.mozilla.org/fr/firefox/addon/noscript

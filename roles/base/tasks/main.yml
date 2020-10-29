@@ -4,7 +4,7 @@
   replace:
     path: /etc/apt/sources.list
 #    regexp: '^# deb http://archive.canonical.com/ubuntu bionic partner'
-    regexp: '^# deb http://archive.canonical.com/ubuntu '"{{ansible_distribution_release}} partner"
+    regexp: "^# deb http://archive.canonical.com/ubuntu {{ansible_distribution_release}} partner"
     replace: "deb http://archive.canonical.com/ubuntu {{ansible_distribution_release}} partner"
 
 - name: Add PPA repository        #Collection of bleeding edge software, mandatory for Woeusb
@@ -322,4 +322,3 @@
     dest: ~/.config/autostart/redshift-gtk.desktop
   become: yes
   become_user: "{{ local_username }}"
-    
