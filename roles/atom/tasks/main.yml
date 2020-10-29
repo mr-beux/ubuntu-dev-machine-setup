@@ -20,3 +20,5 @@
     path: /usr/share/applications/defaults.list
     regexp: '^text/plain=gedit.desktop'
     line: 'text/plain=atom.desktop'
+
+...

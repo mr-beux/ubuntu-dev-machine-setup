@@ -15,7 +15,7 @@
     name: "{{ antivirus_packages_gnome }}"
     state: present
   when: (ansible_env.XDG_CURRENT_DESKTOP == "ubuntu:GNOME")
-  
+
 - name: Automatic Update of virus database via cron.daily
   blockinfile:
     path: /etc/cron.daily/clamav
@@ -36,3 +36,5 @@
     group: root
     mode: 0755
   become: yes
+
+...

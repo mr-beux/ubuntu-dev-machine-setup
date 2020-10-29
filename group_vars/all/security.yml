@@ -18,3 +18,5 @@ antivirus_packages:
 
 antivirus_packages_gnome:
   - clamtk-gnome                        # right click clamav scan access from nautilus
+
+...

@@ -7,3 +7,5 @@ biometric_packages:
   - fingerprint-gui                     #Application for fingerprint-based authentication
   - policykit-1-fingerprint-gui         #Fingerprint GUI dialogs for PolicyKit
   - libbsapi                            #SDK for most of UPEK fingerprint readers, shared libraries
+
+...

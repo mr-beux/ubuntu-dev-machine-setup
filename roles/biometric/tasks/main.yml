@@ -1,6 +1,13 @@
 ---
 
+- name: Add PPA repository for FingerprintGUI
+  apt_repository:
+    repo: ppa:fingerprint/fingerprint-gui
+    state: present
+
 - name: Install Biometrics Packages
   package:
     name: "{{ biometric_packages }}"
     state: present
+
+...

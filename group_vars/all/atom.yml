@@ -22,3 +22,5 @@ atom_plugins:
   - emmet                               #Emmet – the essential tool for web developers
   - git-time-machine                    #Visually interact with git commit history for a file
   - merge-conflicts                     #Resolve git conflicts within Atom
+
+...

@@ -14,7 +14,7 @@
 
 #- name: Add PPA repository for conky-manager
 #  apt_repository:
-#    repo: "ppa:teejee2008/ppa"
+#    repo: "ppa:teejee2008/ppa"6os7jSSxl91rIz7G7UbJbwrGDh6WxzCgN3zeqBwG
 #    state: present
 
 - name: Add PPA repository for numix flat design icons
@@ -322,3 +322,5 @@
     dest: ~/.config/autostart/redshift-gtk.desktop
   become: yes
   become_user: "{{ local_username }}"
+
+...

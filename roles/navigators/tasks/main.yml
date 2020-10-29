@@ -24,3 +24,5 @@
   firefox_addon:
     url: "{{ navigators_firefox_addons_url }}"
     state: present
+
+...
