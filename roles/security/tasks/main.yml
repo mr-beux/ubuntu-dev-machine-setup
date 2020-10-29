@@ -14,7 +14,7 @@
   package:
     name: "{{ antivirus_packages_gnome }}"
     state: present
-  when: (ansible_env.XDG_CURRENT_DESKTOP == "ubuntu:GNOME")
+  when: "'gnome-terminal' in ansible_facts.packages"
 
 - name: Automatic Update of virus database via cron.daily
   blockinfile:

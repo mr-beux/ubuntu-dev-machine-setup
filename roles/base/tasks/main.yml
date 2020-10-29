@@ -1,5 +1,8 @@
 ---
 
+## "'gnome-terminal' in ansible_facts.packages" == Desktop Grpahical Env = Gnome
+## "'xfce4-terminal' in ansible_facts.packages" == Desktop Grpahical Env = Xfce
+
 - name: Activate Canonical partners repository
   replace:
     path: /etc/apt/sources.list
@@ -95,6 +98,16 @@
     state: present
     reload: yes
 
+- name: Install Mandatory tools for Debian for list installed packages
+  package:
+    name: "{{ base_developer_tools_debian }}"
+    state: present
+  when: ansible_os_family == "Debian"
+
+- name: Gather the package facts
+  package_facts:
+    manager: auto
+
 - name: Perform a dist upgrade
   apt:
     update_cache: yes
@@ -111,7 +124,7 @@
   package:
     name: "{{ base_archiving_tools_gnome }}"
     state: present
-  when: (ansible_env.XDG_CURRENT_DESKTOP == 'ubuntu:GNOME')
+  when: "'gnome-terminal' in ansible_facts.packages"
 
 - name: Install productivity tools
   package:
@@ -132,7 +145,7 @@
   package:
     name: "{{ base_system_tools_gnome }}"
     state: present
-  when: (ansible_env.XDG_CURRENT_DESKTOP == 'ubuntu:GNOME')
+  when: "'gnome-terminal' in ansible_facts.packages"
 
 - name: Install system tools for laptop
   package:
@@ -154,7 +167,7 @@
   package:
     name: "{{ base_developer_tools_gnome }}"
     state: present
-  when: (ansible_env.XDG_CURRENT_DESKTOP == 'ubuntu:GNOME')
+  when: "'gnome-terminal' in ansible_facts.packages"
 
 # Fix for bat syntax highlighting tool; Ubuntu packages it as batcat instead of just bat
 - name: Create symlink for bat
@@ -200,7 +213,7 @@
   package:
     name: "{{ base_media_tools_gnome }}"
     state: present
-  when: (ansible_env.XDG_CURRENT_DESKTOP == 'ubuntu:GNOME')
+  when: "'gnome-terminal' in ansible_facts.packages"
 
 - name: Install Languages packages
   package:
@@ -213,7 +226,7 @@
     state: present
   environment:
     ACCEPT_EULA: 'y'
-  when: (ansible_env.XDG_CURRENT_DESKTOP == "XFCE")
+  when: "'xfce4-terminal' in ansible_facts.packages"
 
 - name: Install bash git prompt for current user
   git:
