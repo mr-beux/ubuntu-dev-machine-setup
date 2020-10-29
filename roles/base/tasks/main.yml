@@ -322,7 +322,7 @@
   become: yes
   become_user: "{{ local_username }}"
 
-- name:  Active geolocalization for redshift
+- name: Active geolocalization for redshift
   blockinfile:
     path: /etc/geoclue/geoclue.conf
     state: present
@@ -333,12 +333,12 @@
       allowed=true
       system=false
       users=
-
-- name:  Active redshift on startUp for current user
-  copy:
-    src: redshift-gtk.desktop
-    dest: ~/.config/autostart/redshift-gtk.desktop
-  become: yes
-  become_user: "{{ local_username }}"
+#Not like this now, cf https://doc.ubuntu-fr.org/redshift#comment_lancer_redshift_automatiquement_au_demarrage
+#- name: Active redshift on startUp for current user
+#  copy:
+#    src: redshift-gtk.desktop
+#    dest: ~/.config/autostart/redshift-gtk.desktop
+#  become: yes
+#  become_user: "{{ local_username }}"
 
 ...

@@ -85,6 +85,7 @@ base_system_tools_gnome:
   - gnome-tweak-tool                    #Tool to adjust advanced configuration settings for GNOME
   - gnome-software-plugin-flatpak       #Flatpak support for GNOME Software
   - gparted                             #GNOME partition editor
+  - gnome-shell-extension-redshift      #Redshift extension for GNOME Shell
 
 base_system_tools_laptop:
 #  - cpufrequtils                        #Fully configurable daemon for dynamic frequency and voltage scaling
@@ -225,13 +226,13 @@ base_language_tools:
 base_xfce_tunning_tools:
   - catfish                             #File searching tool which is configurable via the command line
   - xfce4                               #Meta-package for the Xfce Lightweight Desktop Environment
-  - gtk3-engines-xfce                   #GTK+-3.0 theme engine for Xfce
+##Not available on ubuntu 20.04  - gtk3-engines-xfce                   #GTK+-3.0 theme engine for Xfce
   - xfce4-goodies                       #Enhancements for the Xfce4 Desktop Environment
-  - xfwm4-themes                        #Theme files for xfwm4, the window manager of the Xfce4 project
+##Not available in Ubuntu 20.04  - xfwm4-themes                        #Theme files for xfwm4, the window manager of the Xfce4 project
   - xubuntu-restricted-addons           #Commonly used restricted packages for Ubuntu (transitional)
   - numix-icon-theme-circle             #Numix Circle icons
   - numix-gtk-theme                     #Numix GTK Theme
-  - numix-icon-theme-square             #Numix Square icons
+  - numix-icon-theme             #      Numix icon theme
   - plank                               #Elegant, simple, clean dock
 
 base_git_bash_prompt_url: "https://github.com/magicmonty/bash-git-prompt.git"

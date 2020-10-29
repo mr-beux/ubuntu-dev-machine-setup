@@ -24,5 +24,7 @@
   firefox_addon:
     url: "{{ navigators_firefox_addons_url }}"
     state: present
+  become: yes
+  become_user: "{{ local_username }}"
 
 ...
