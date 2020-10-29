@@ -1,6 +1,7 @@
 ---
 
-- block:
+- name: Deploy beautifull fonts
+  block:
     - name: create local fonts directory
       file:
         path: "~{{ local_username }}/.local/share/fonts"

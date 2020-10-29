@@ -1,0 +1,6 @@
+---
+
+- name: Install OnBoardDiagnostic packages
+  package:
+    name: "{{ obd_tools }}"
+    state: present

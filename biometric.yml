@@ -1,0 +1,10 @@
+---
+
+
+
+
+      - name: Add PPA repository for FingerprintGUI
+        apt_repository:
+          repo: ppa:fingerprint/fingerprint-gui
+          state: present
+        become: yes

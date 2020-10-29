@@ -1,0 +1,24 @@
+---
+
+atom_tools:
+  - atom                                #Atom text editor from GitHub
+
+atom_plugins:
+  - compare-files                       #Compares two files and show the diff
+  - linter                              #Affiche les erreurs dans votre code
+  - linter-flake8                       #Atom linter plugin for Python, using flake8
+  - linter-ui-default                   #Default UI for the Linter package
+  - french-menu                         #Your favorite text and code editor is now available in French within a package !
+  - highlight-selected                  #Highlights the current word selected when double clicking
+  - highlight-line                      #Highlights the current line in the editor
+  - file-icons                          #Assign file extension icons and colours for improved visual grepping
+  - sublime-style-column-selection      #Enable Sublime style 'Column Selection'. Just hold 'alt' while you select, or select using your middle mouse button. Also similar to Texmate's 'Multiple Carets', or BBEdit's 'Block Select'
+  - minimap                             #A preview of the full source code
+  - atom-beautify                       #Beautify HTML, CSS, JavaScript, PHP, Python, Ruby, Java, C, C++, C#, Objective-C, CoffeeScript, TypeScript, Coldfusion, SQL, and more in Atom
+  - git-plus                            #Do git things without the termina
+  - intentions                          #Base package for showing intentions in Atom
+  - busy-signal                         #A package that provides an easy to use API to show your package is performing a task
+  - atom-alignment                      #A simple key-binding for aligning multi-line and multiple selections in Atom (Based on the sublime text plugin)
+  - emmet                               #Emmet – the essential tool for web developers
+  - git-time-machine                    #Visually interact with git commit history for a file
+  - merge-conflicts                     #Resolve git conflicts within Atom

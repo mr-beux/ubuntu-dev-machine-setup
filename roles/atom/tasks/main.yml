@@ -1,0 +1,22 @@
+---
+
+- name: Install Atom Package
+  package:
+    name: "{{ atom_tools }}"
+    state: present
+
+- name: List modules on Atom Editor
+  command: apm list -i
+  register: atom_modules_installed
+
+- name: Add modules on Atom Editor
+  command : apm install {{ item }}
+  with_items: "{{ atom_plugins }}"
+  when: not atom_modules_installed.stdout | regex_search(item)
+
+- name: Define Atom Editor for plain text files
+  lineinfile:
+    backup: yes
+    path: /usr/share/applications/defaults.list
+    regexp: '^text/plain=gedit.desktop'
+    line: 'text/plain=atom.desktop'

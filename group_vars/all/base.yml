@@ -1,144 +1,244 @@
 ---
 
 base_archiving_tools:
-  - arj
-  - cabextract
-  - file-roller
-  - mpack
-  - p7zip-full
-  - p7zip-rar
-  - rar
-  - sharutils
-  - unace
-  - unrar
-  - unzip
-  - uudeview
-  - zip
+  - arj                                 #Archiver for .arj files
+  - cabextract                          #Extractor Microsoft cabinet files, also called .CAB files
+  - libuu0                              #Library for de/encoding several popular file encodings - runtime
+  - lzma                                #Compression and decompression in the LZMA format - Command line utility
+  - mpack                               #Tool for encoding and decoding (respectively) binary files in MIME format mail messages
+  - p7zip-full                          #7z and 7za file archivers with high compression ratio
+  - p7zip-rar                           #Non-free rar module for p7zip
+  - p7zip                               #7zr file archiver with high compression ratio
+  - pbzip2                              #Parallel bzip2 implementation
+  - pigz                                #Parallel Implementation of GZip
+  - rar                                 #Un-Archiver for .rar files
+  - sharutils                           #Shar, unshar, uuencode, uudecode
+  - unace                               #Extract test and visualise ACE archiver
+  - unar                                #Unarchiver for a variety of file formats
+  - unrar                               #Un-archiver for .rar files
+  - unzip                               #Un-archiver for .zip files
+  - uudeview                            #Smart multi-file multi-part decoder
+  - zip                                 #Un-archiver for .zip files
+
+base_archiving_tools_gnome:
+  - file-roller                         #Archive manager for the GNOME desktop environment
 
 base_productivity_tools:
-  - libreoffice
+  - libreoffice                         #Office productivity suite (metapackage)
+
+base_desktop_tools:
+  - shotwell                            #Digital photo organizer
 
 base_system_tools:
-  - fatrace
-  - gnome-calculator
-  - gnome-shell-extension-bluetooth-quick-connect  # enable in gnome-tweak-tools > Extensions
-  - gnome-shell-timer  # enable in gnome-tweak-tools > Extensions
-  - gnome-tweak-tool
-  - progress
-  - pwgen
-  #- syncthing
+  - atop                                #Monitor for system resources and process activity
+  - bleachbit                           #Delete unnecessary files from the system
+  - bonnie++                            #Hard drive benchmark suite
+  - ccze                                #Robust, modular log coloriser
+  - conky-all                           #Highly configurable system monitor (all features enabled)
+#  - conky-manager don't exist anymore !
+  - davfs2                              #Mount a WebDAV resource as a regular file system
+  - dnsutils                            #Clients provided with BIND
+  - ethtool                             #Display or change Ethernet device settings
+  - exfat-fuse                          #Read and write exFAT driver for FUSE
+  - exfat-utils                         #Utilities to create, check, label and dump exFAT filesystem
+  - fatrace                             #Report system wide file access events
+  - flatpak                             #Application deployment framework for desktop apps
+  - htop                                #Interactive processes viewer
+  - iftop                               #Displays bandwidth usage information on an network interface
+###### Detect CPU before  - intel-microcode                     #Processor microcode firmware for Intel CPUs
+  - iotop                               #Simple top-like I/O monitor
+#  - iperf                               #Internet Protocol bandwidth measuring tool V2
+  - iperf3                              #Internet Protocol bandwidth measuring tool V3
+  - iptraf                              #Transitional package to iptraf-ng
+  - iptraf-ng                           #Next Generation Interactive Colorful IP LAN Monitor
+  - lshw                                #Information about hardware configuration
+  - mtr                                 #Full screen ncurses and X11 traceroute tool
+  - namebench                           #DNS benchmark utility
+  - ncat                                #NMAP netcat reimplementation
+  - ncdu                                #Ncurses disk usage viewer
+  - needrestart                         #Check which daemons need to be restarted after library upgrades
+  - netcat                              #TCP/IP swiss army knife -- transitional package = netcat-traditional - TCP/IP swiss army knife
+  - netcat-openbsd                      #TCP/IP swiss army knife, OpenBSD rewrite of netcat, including support for IPv6, proxies, and Unix sockets.
+  - openvswitch-switch                  #Open vSwitch switch implementations
+  - ppa-purge                           #Disables a PPA and reverts to official packages
+  - progress                            #Coreutils Progress Viewer (formerly known as 'cv')
+  - pwgen                               #Password generator
+  - redshift-gtk                        #Adjusts the color temperature of your screen with GTK+ integration
+  - remmina                             #GTK+ Remote Desktop Client
+  - screen                              #Terminal multiplexer with VT100/ANSI terminal emulation
+  - smartmontools                       #Control and monitor storage systems using S.M.A.R.T.
+  - sshpass                             #Non-interactive ssh password authentication
+#  - syncthing                           #Decentralized file synchronization
+  - sysdig                              #System-level exploration and troubleshooting tool
+  - sysdig-dkms                         #System-level exploration and troubleshooting tool - kernel source
+  - tmux                                #Terminal multiplexer
+  - woeusb                              #Tool for creating usb stick windows installer from an iso image or a real DVD
+  - xclip                               #Command line interface to X selections, used for tmux
+###Not usefull on desktop, usefull on Server version
+#      - apticron                           #Simple tool to mail about pending package updates - cron version
+#      - fail2ban                           #ban hosts that cause multiple authentication errors
+
+base_system_tools_gnome:
+  - gnome-calculator                    #GNOME calculator is a powerful graphical calculator with financial, logical and scientific modes
+  - gnome-shell-extension-bluetooth-quick-connect  #Enable in gnome-tweak-tools > Extensions
+  - gnome-shell-timer                   #Enable in gnome-tweak-tools > Extensions
+  - gnome-tweak-tool                    #Tool to adjust advanced configuration settings for GNOME
+  - gnome-software-plugin-flatpak       #Flatpak support for GNOME Software
+  - gparted                             #GNOME partition editor
 
 base_system_tools_laptop:
-#  - cpufrequtils
-#  - powertop
-  - tlp
-  - tlp-rdw
-  - acpi-call-dkms  # for newer ThinkPads (X220/T420 and later)
-#  - tp-smapi-dkms  # for older ThinkPads
+#  - cpufrequtils                        #Fully configurable daemon for dynamic frequency and voltage scaling
+#  - powertop                            #Tool for diagnose issues with power consumption and power management
+  - tlp                                 #Tlp - Save battery power on laptops
+  - tlp-rdw                             #Radio device wizard
+#  - thermald                            #Thermal monitoring and controlling daemon
+  - indicator-cpufreq                   #CPU frequency scaling indicator
+  - lm-sensors                          #Utilities to read temperature/voltage/fan sensors
+  - hddtemp                             #Hard drive temperature monitoring utility
+  - psensor                             #Display graphs for monitoring hardware temperature
+#  - acpi-call-dkms                      #For newer ThinkPads (X220/T420 and later)
+#  - tp-smapi-dkms                       #For older ThinkPads
 
 base_download_tools:
-  - aria2
-  - axel
-  - qbittorrent
-  - speedtest-cli
-  - wget
-  - youtube-dl
+  - aria2                               #Download client with resuming and segmented downloading
+  - axel                                #Light command line download accelerator
+  - qbittorrent                         #Bittorrent client based on libtorrent-rasterbar
+  - speedtest-cli                       #Testing internet bandwidth using speedtest.net
+  - wget                                #Retrieving files using HTTP, HTTPS, FTP and FTPS, the most widely used Internet protocols
+  - youtube-dl                          #Download videos from YouTube.com and a few more sites
 
 base_developer_tools:
-  - android-tools-adb
-  - android-tools-fastboot
-  - ansible
-  - ansible-lint
-  - awscli
-  - bat
-  - cloc
-  - clusterssh
-  - colordiff
-  - curl
-  - default-jre-headless
-  - dos2unix
-  - expect
-  - filezilla
-  - fonts-powerline
-  - g++
-  - gedit-plugins
-  - geoip-bin
-  - ghostwriter
-  - git
-  - git-extras
-  - gitg
-  - golang-go
-  - htop
-  - httpie
-  - inotify-tools
-  - ipython3
-  - jq
-  - kwalify
-  - makeself
-  - meld
-  - miller
-  - most
-  - ncat
-  - netcat
-  - nmap
-  - nodejs
-  - pandoc
-  - parallel
-  - pep8
-  - pipenv
-  - powerline
-  - pry
-  - pssh
-  #- puppet
-  #- puppet-lint
-  - pv
-  - pylint
-  - python3-demjson  # provides jsonlint-py3 for json lint
-  - python3-jmespath
-  - python3-pep8
-  - python3-pip
-  - ranger
-  - recode
-  - remmina
-  - rename
-  - ruby
-  - ruby-dev
-  - shellcheck
-  - siege
-  - socat
-  - sshfs
-  - sshpass
-  - tilix
-  - tldr
-  - tmux
-  - tmuxp
-  - tree
-  - uget
-  - xclip
-  - yamllint
-  - zeal
+  - android-tools-adb                   #Android Debug Bridge
+  - android-tools-fastboot              #Android fastboot tool
+  - ansible                             #Configuration management, deployment, and task execution system
+  - ansible-lint                        #Lint tool for Ansible playbooks
+  - awscli                              #Unified command line interface to many Amazon Web Services
+  - bat                                 #Cat clone with syntax highlighting and git integration, Ubuntu > 19.10 is mandatory
+  - cloc                                #Statistics utility to count lines of code
+  - clusterssh                          #Administer multiple ssh or rsh shells simultaneously
+  - colordiff                           #Tool to colorize 'diff' output
+  - curl                                #Command line tool for transferring data with URL syntax
+  - default-jre-headless                #Standard Java or Java compatible Runtime (headless)
+  - dos2unix                            #Convert text file line endings between CRLF and LF
+  - expect                              #Automates interactive applications
+  - fonts-powerline                     #Prompt and statusline utility (symbols font)
+  - g++                                 #GNU C++ compiler, a fairly portable optimizing compiler for C++.
+  - geoip-bin                           #IP lookup command line tools that use the GeoIP library
+  - ghostwriter                         #Distraction-free, themeable Markdown editor
+  - git                                 #Fast, scalable, distributed revision control system
+  - git-extras                          #Extra commands for git
+  - gitg                                #Git repository viewer
+  - golang-go                           #Go programming language compiler, linker, compiled stdlib
+  - httpie                              #CLI, cURL-like tool for humans
+  - inotify-tools                       #Command-line programs providing a simple interface to inotify
+  - ipython3                            #Enhanced interactive Python 3 shell
+  - jq                                  #Lightweight and flexible command-line JSON processor
+  - kwalify                             #Parser, schema validator, and data-binding tool for YAML and JSON
+  - makeself                            #Utility to generate self-extractable archives
+  - meld                                #Graphical tool to diff and merge files
+  - miller                              #Name-indexed data processing tool
+  - most                                #Pager program similar to more and less
+  - nodejs                              #Evented I/O for V8 javascript - runtime executable
+  - pandoc                              #General markup converter
+  - parallel                            #Build and execute command lines from standard input in parallel
+  - pep8                                #Python PEP 8 code style checker - transitional package
+  - pipenv                              #Python's officially recommended packaging tool
+  - powerline                           #Prompt and statusline utility
+  - pry                                 #Powerful irb alternative and runtime developer console
+  - pssh                                #Parallel versions of SSH-based tools
+  #- puppet                              #Configuration management system
+  #- puppet-lint                         #Check puppet manifests for style guide conformity
+  - pv                                  #Shell pipeline element to meter data passing through
+  - pylint                              #Python code static checker and UML diagram generator
+  - python3-coverage                    #Code coverage tool for Python 3
+  - python3-demjson                     #Encoder, decoder, and lint/validator for JSON in Python (python3) provides jsonlint-py3 for json lint
+  - python3-jmespath                    #JSON Matching Expressions (Python 3)
+  - python3-pep8                        #Python PEP 8 code style checker - Python 3
+  - python3-pip                         #Python package installer
+  - ranger                              #Console File Manager with VI Key Bindings
+  - recode                              #Character set conversion utility
+  - remmina                             #GTK+ Remote Desktop Client
+  - rename                              #Perl extension for renaming multiple files
+  - ruby                                #Interpreter of object-oriented scripting language Ruby
+  - ruby-dev                            #Header files for compiling extension modules for Ruby (default version)
+  - shellcheck                          #Lint tool for shell scripts
+  - siege                               #HTTP regression testing and benchmarking utility
+  - socat                               #Multipurpose relay for bidirectional data transfer
+  - sshfs                               #Filesystem client based on SSH File Transfer Protocol
+  - sshpass                             #Non-interactive ssh password authentication
+  - tldr                                #Haskell tldr client
+  - tmux                                #Terminal multiplexer
+  - tmuxp                               #Tmux session manager
+  - tree                                #Displays an indented directory tree, in color
+  - typecatcher                         #Download Google webfonts for off-line use
+  - uget                                #Easy-to-use download manager written in GTK+
+  - vim                                 #Vi IMproved - enhanced vi editor
+  - vim-runtime                         #Vi IMproved - Runtime files
+  - yamllint                            #Linter for YAML files
+  - zeal                                #Simple offline API documentation browser
+#python-jmespath is a Dependency for use the role pvecluster -> When clustering is enabled, this role makes use of the `json_query` filter, which requires that the `jmespath` library
+
+base_developer_tools_gnome:
+  - gedit-plugins                       #Set of plugins for gedit
+  - tilix                               #Tiling terminal emulator for GNOME
 
 base_virtualization_tools:
-  - vagrant
-  - virtualbox
-#  - virtualbox-ext-pack
-  - docker.io
-  - docker-compose
+#  - vagrant                             #Tool for building and distributing virtualized development environments
+#  - virtualbox                          #Metapackage for virtualbox-savvy projects
+#  - virtualbox-ext-pack                 #Extra capabilities for VirtualBox, downloader.
+  - docker.io                           #Linux container runtime
+  - docker-compose                      #Punctual, lightweight development environments using Docker
+  - qemu                                #Fast processor emulator
+  - qemu-kvm                            #QEMU Full virtualization on x86 hardware
+  - bridge-utils                        #Utilities for configuring the Linux Ethernet bridge
+  - virt-manager                        #Desktop application for managing virtual machines
+  - libvirt-bin                         #Programs for the libvirt library
+  - ubuntu-vm-builder                   #Script which automates the process of creating a ready to use VM based on Ubuntu
 
 base_media_tools:
-  - ffmpeg
-  - gimp
-  - imagemagick
-  - libimage-exiftool-perl
-  - mediainfo
-  - soundconverter
-  - totem
-#  - ubuntu-restricted-extras
-  - vlc
+  - ffmpeg                              #Tools for transcoding, streaming and playing of multimedia files
+  - gimp                                #GNU Image Manipulation Program
+  - imagemagick                         #Image manipulation programs -- binaries
+  - libimage-exiftool-perl              #Library and program to read and write meta information in multimedia files
+  - mediainfo                           #Command-line utility for reading information from audio/video files
+  - vlc                                 #Multimedia player and streamer
+  - openshot                            #Create and edit videos and movies (transitional package)
+  - openshot-doc                        #Documentation for openshot-qt (transitional package)
+  - handbrake                           #Versatile DVD ripper and video transcoder (GTK+ GUI)
+
+base_media_tools_gnome:
+  - soundconverter                      #GNOME application to convert audio files into other formats
+  - totem                               #Simple media player for the GNOME desktop based on GStreamer
+  - ubuntu-restricted-extras            #Commonly used media codecs and fonts for Ubuntu (Gnome)
+
+base_language_tools:
+  - libreoffice-l10n-fr                 #Suite de productivité bureautique -- paquet de langue pour le français
+  - libreoffice-help-fr                 #Suite de productivité bureautique -- aide en français
+  - hyphen-fr                           #Schémas de césure en français, Ces motifs peuvent être utilisés par les programmes qui exploitent libhyphen, tel LibreOffice.
+  - manpages-fr                         #French version of the manual pages about using GNU/Linux
+  - manpages-fr-extra                   #French version of the manual pages
+
+base_xfce_tunning_tools:
+  - catfish                             #File searching tool which is configurable via the command line
+  - xfce4                               #Meta-package for the Xfce Lightweight Desktop Environment
+  - gtk3-engines-xfce                   #GTK+-3.0 theme engine for Xfce
+  - xfce4-goodies                       #Enhancements for the Xfce4 Desktop Environment
+  - xfwm4-themes                        #Theme files for xfwm4, the window manager of the Xfce4 project
+  - xubuntu-restricted-addons           #Commonly used restricted packages for Ubuntu (transitional)
+  - numix-icon-theme-circle             #Numix Circle icons
+  - numix-gtk-theme                     #Numix GTK Theme
+  - numix-icon-theme-square             #Numix Square icons
+  - plank                               #Elegant, simple, clean dock
 
 base_git_bash_prompt_url: "https://github.com/magicmonty/bash-git-prompt.git"
 
 base_openssh_server:
   apt_package: openssh-server
   service: ssh
-...
+
+base_python_pip_modules:
+  - proxmoxer                         #Python Wrapper for the Proxmox 2.x API (HTTP and SSH)
+  - requests                          #Python HTTP for Humans
+  - flake8                            #The modular source code checker: pep8, pyflakes and co
+  - flake8-docstrings                 #Extension for flake8 which uses pydocstyle to check docstrings
+  - pywinrm                           #Python library for Windows Remote Management

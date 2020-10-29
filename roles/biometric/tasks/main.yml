@@ -1,0 +1,6 @@
+---
+
+- name: Install Biometrics Packages
+  package:
+    name: "{{ biometric_packages }}"
+    state: present

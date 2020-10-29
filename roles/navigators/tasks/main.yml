@@ -1,0 +1,26 @@
+---
+
+- name: add googlechrome apt key
+  apt_key:
+    url: "{{ navigators_googlechrome_apt_key }}"
+
+- name: add google chrome repo
+  apt_repository:
+    repo: "{{ navigators_googlechrome_repo }}"
+    state: present
+    filename: google-chrome
+
+- name: install latest google chrome
+  apt:
+    name: google-chrome-stable
+    force_apt_get: yes
+
+- name: Install Internet packages
+  package:
+    name: "{{ navigators_internet_packages }}"
+    state: present
+
+- name: Install Firefox Addons
+  firefox_addon:
+    url: "{{ navigators_firefox_addons_url }}"
+    state: present

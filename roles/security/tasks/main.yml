@@ -1,9 +1,38 @@
 ---
 
-- name: install security packages
-  apt:
+- name: Install Security packages
+  package:
     name: "{{ security_packages }}"
     state: present
-    force_apt_get: yes
 
-...
+- name: Install Antivirus packages
+  package:
+    name: "{{ antivirus_packages }}"
+    state: present
+
+- name: Install Antivirus packages for gnome
+  package:
+    name: "{{ antivirus_packages_gnome }}"
+    state: present
+  when: (ansible_env.XDG_CURRENT_DESKTOP == "ubuntu:GNOME")
+  
+- name: Automatic Update of virus database via cron.daily
+  blockinfile:
+    path: /etc/cron.daily/clamav
+    state: present
+    create: yes
+    marker: "# {mark} Ansible Automatic Update of virus database"
+    block: |
+      #!/bin/sh
+      # https://ubuntuforums.org/showthread.php?t=1032147
+      /etc/init.d/clamav-freshclam stop
+      /usr/bin/freshclam -v >> /var/log/resul_freshclam.txt
+      /etc/init.d/clamav-freshclam start
+  become: yes
+
+- file:
+    path: /etc/cron.daily/clamav
+    owner: root
+    group: root
+    mode: 0755
+  become: yes

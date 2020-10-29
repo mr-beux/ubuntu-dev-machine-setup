@@ -2,4 +2,5 @@
 
 - hosts: localhost
   roles:
-    - base
+    - atom
+  become: yes
