@@ -1,5 +1,5 @@
 ---
-  
+
 dependencies:
   - role: alzadude.firefox-addon
 
@@ -23,11 +23,12 @@ dependencies:
     name: "{{ navigators_internet_packages }}"
     state: present
 
-- name: Install Firefox Addons
-  firefox_addon:
-    url: "{{ navigators_firefox_addons_url }}"
-    state: present
-  become: yes
-  become_user: "{{ local_username }}"
+#TODO debug https://github.com/alzadude/ansible-firefox-addon
+#- name: Install Firefox Addons
+#  firefox_addon:
+#    url: "{{ navigators_firefox_addons_url }}"
+#    state: present
+#  become: yes
+#  become_user: "{{ local_username }}"
 
 ...
