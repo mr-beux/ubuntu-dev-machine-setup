@@ -53,7 +53,7 @@ base_system_tools:
   - iptraf-ng                           #Next Generation Interactive Colorful IP LAN Monitor
   - lshw                                #Information about hardware configuration
   - mtr                                 #Full screen ncurses and X11 traceroute tool
-  - namebench                           #DNS benchmark utility
+##Not Available on *ubuntu 20.04   namebench                           #DNS benchmark utility
   - ncat                                #NMAP netcat reimplementation
   - ncdu                                #Ncurses disk usage viewer
   - needrestart                         #Check which daemons need to be restarted after library upgrades

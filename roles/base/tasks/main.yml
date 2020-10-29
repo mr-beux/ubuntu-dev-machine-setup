@@ -115,6 +115,11 @@
     force_apt_get: yes
   when: (ansible_os_family == "Debian")
 
+## Actually on 29/10/20 on xubuntu 20, woeusb : Depends: libwxgtk3.0-0v5 (>= 3.0.4+dfsg) but it is not installable
+- name: Install libwxgtk manally (dependancy for woeusb)
+  apt:
+    deb: http://mirrors.kernel.org/ubuntu/pool/universe/w/wxwidgets3.0/libwxgtk3.0-0v5_3.0.4+dfsg-3_amd64.deb
+
 - name: Install archiving tools
   package:
     name: "{{ base_archiving_tools }}"
