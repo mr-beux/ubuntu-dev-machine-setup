@@ -25,7 +25,7 @@
     repo: "ppa:numix/ppa"
     state: present
 
-- name: Only run "update_cache=yes" if the last one is more than "{{ yum_update_cache_valid_time }}" seconds ago
+- name: Only run update_cache=yes if the last one is more than "{{ repo_manager_update_cache_valid_time }}" seconds ago
   apt:
     update_cache: yes
     cache_valid_time: "{{ repo_manager_update_cache_valid_time }}"
