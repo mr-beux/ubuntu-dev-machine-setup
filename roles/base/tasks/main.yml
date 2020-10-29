@@ -111,7 +111,7 @@
   package:
     name: "{{ base_archiving_tools_gnome }}"
     state: present
-  when: "'GNOME' in {{ansible_env.XDG_CURRENT_DESKTOP}}"
+  when: ansible_env.XDG_CURRENT_DESKTOP is search("GNOME")
 
 - name: Install productivity tools
   package:
@@ -132,7 +132,7 @@
   package:
     name: "{{ base_system_tools_gnome }}"
     state: present
-  when: "'GNOME' in {{ansible_env.XDG_CURRENT_DESKTOP}}"
+  when: ansible_env.XDG_CURRENT_DESKTOP is search("GNOME")
 
 - name: Install system tools for laptop
   package:
@@ -154,7 +154,7 @@
   package:
     name: "{{ base_developer_tools_gnome }}"
     state: present
-  when: "'GNOME' in {{ansible_env.XDG_CURRENT_DESKTOP}}"
+  when: ansible_env.XDG_CURRENT_DESKTOP is search("GNOME")
 
 # Fix for bat syntax highlighting tool; Ubuntu packages it as batcat instead of just bat
 - name: Create symlink for bat
@@ -200,7 +200,7 @@
   package:
     name: "{{ base_media_tools_gnome }}"
     state: present
-  when: "'GNOME' in {{ansible_env.XDG_CURRENT_DESKTOP}}"
+  when: ansible_env.XDG_CURRENT_DESKTOP is search("GNOME")
 
 - name: Install Languages packages
   package:
