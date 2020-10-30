@@ -267,7 +267,8 @@
 
     - name: Validate virtulization KVM installation	#TODO for testing actual user, need to reread /etc/password MAJ
       command: "virsh -c qemu:///system list"
-
+      become: yes
+      become_user: "{{ local_username }}"
   when: not virtual_machine_mode
 
 - name: Install Python pip modules
