@@ -1,5 +1,24 @@
 ---
 
+#Atom not in defaut package in *ubuntu20.04
+- name: Add Atom Apt signing key
+  apt_key:
+    url: https://packagecloud.io/AtomEditor/atom/gpgkey
+    state: present
+  when: ansible_os_family == "Debian"
+
+- name: Add Atom repository into sources list
+  apt_repository:
+    repo: "deb [arch=amd64] https://packagecloud.io/AtomEditor/atom/any/ any main"
+    state: present
+  when: ansible_os_family == "Debian"
+  
+##Only on *ubuntu18.04
+#- name: Add PPA repository for ATOM editor
+#  apt_repository:
+#    repo: "ppa:webupd8team/atom"
+#    state: present
+
 - name: Install Atom Package
   package:
     name: "{{ atom_tools }}"

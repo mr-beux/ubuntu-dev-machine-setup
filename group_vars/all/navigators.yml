@@ -9,6 +9,9 @@ navigators_internet_packages:
   - firefox                             #Safe and easy web browser from Mozilla
   - filezilla                           #Full-featured graphical FTP/FTPS/SFTP client
 
+navigators_internet_packages_languages:
+  - firefox-locale-fr
+
 #Addons list for tunning Firefox
 navigators_firefox_addons_url:
   - https://addons.mozilla.org/fr/firefox/addon/ublock-origin
@@ -19,5 +22,10 @@ navigators_firefox_addons_url:
   - https://addons.mozilla.org/fr/firefox/addon/https-everywhere
   - https://addons.mozilla.org/fr/firefox/addon/grammalecte-fr
   - https://addons.mozilla.org/fr/firefox/addon/grammarly-1
+  - https://addons.mozilla.org/fr/firefox/addon/foxyproxy-standard/
+
+#Video DownloadHelper Companion App 1.5.0 for encoding video for Addon VideoDownloadhelper
+companion_app_VideoDownloadhelper_ubuntu_debian_url: "https://github.com/mi-g/vdhcoapp/releases/download/v1.5.0/net.downloadhelper.coapp-1.5.0-1_amd64.deb"
+companion_app_VideoDownloadhelper_othersx64_url: "https://github.com/mi-g/vdhcoapp/releases/download/v1.5.0/net.downloadhelper.coapp-1.5.0-1_amd64.tar.gz"
 
 ...

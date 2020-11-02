@@ -1,5 +1,7 @@
 ---
 
+git_mail_user_account:   "mr.beux@hotmail.fr"
+
 base_archiving_tools:
   - arj                                 #Archiver for .arj files
   - cabextract                          #Extractor Microsoft cabinet files, also called .CAB files
@@ -41,11 +43,11 @@ base_system_tools:
   - ethtool                             #Display or change Ethernet device settings
   - exfat-fuse                          #Read and write exFAT driver for FUSE
   - exfat-utils                         #Utilities to create, check, label and dump exFAT filesystem
+  - efibootmgr                          #Interact with the EFI Boot Manager
   - fatrace                             #Report system wide file access events
   - flatpak                             #Application deployment framework for desktop apps
   - htop                                #Interactive processes viewer
   - iftop                               #Displays bandwidth usage information on an network interface
-###### Detect CPU before  - intel-microcode                     #Processor microcode firmware for Intel CPUs
   - iotop                               #Simple top-like I/O monitor
 #  - iperf                               #Internet Protocol bandwidth measuring tool V2
   - iperf3                              #Internet Protocol bandwidth measuring tool V3
@@ -53,7 +55,7 @@ base_system_tools:
   - iptraf-ng                           #Next Generation Interactive Colorful IP LAN Monitor
   - lshw                                #Information about hardware configuration
   - mtr                                 #Full screen ncurses and X11 traceroute tool
-##Not Available on *ubuntu 20.04   namebench                           #DNS benchmark utility
+##Not Available on *ubuntu 20.04  - namebench                           #DNS benchmark utility
   - ncat                                #NMAP netcat reimplementation
   - ncdu                                #Ncurses disk usage viewer
   - needrestart                         #Check which daemons need to be restarted after library upgrades
@@ -99,6 +101,10 @@ base_system_tools_laptop:
   - psensor                             #Display graphs for monitoring hardware temperature
 #  - acpi-call-dkms                      #For newer ThinkPads (X220/T420 and later)
 #  - tp-smapi-dkms                       #For older ThinkPads
+
+base_hardware:
+  - intel-microcode                     #Processor microcode firmware for Intel CPUs
+  - intel-media-va-driver-non-free      #VAAPI driver for the Intel GEN8+ Graphics family
 
 base_download_tools:
   - aria2                               #Download client with resuming and segmented downloading
@@ -148,7 +154,7 @@ base_developer_tools:
   - pry                                 #Powerful irb alternative and runtime developer console
   - pssh                                #Parallel versions of SSH-based tools
   #- puppet                              #Configuration management system
-  #- puppet-lint                         #Check puppet manifests for style guide conformity
+  - puppet-lint                         #Check puppet manifests for style guide conformity
   - pv                                  #Shell pipeline element to meter data passing through
   - pylint                              #Python code static checker and UML diagram generator
   - python3-coverage                    #Code coverage tool for Python 3
@@ -186,19 +192,6 @@ base_developer_tools_debian:
 base_developer_tools_gnome:
   - gedit-plugins                       #Set of plugins for gedit
   - tilix                               #Tiling terminal emulator for GNOME
-
-base_virtualization_tools:
-#  - vagrant                             #Tool for building and distributing virtualized development environments
-#  - virtualbox                          #Metapackage for virtualbox-savvy projects
-#  - virtualbox-ext-pack                 #Extra capabilities for VirtualBox, downloader.
-  - docker.io                           #Linux container runtime
-  - docker-compose                      #Punctual, lightweight development environments using Docker
-  - qemu                                #Fast processor emulator
-  - qemu-kvm                            #QEMU Full virtualization on x86 hardware
-  - bridge-utils                        #Utilities for configuring the Linux Ethernet bridge
-  - virt-manager                        #Desktop application for managing virtual machines
-  - libvirt-bin                         #Programs for the libvirt library
-  - ubuntu-vm-builder                   #Script which automates the process of creating a ready to use VM based on Ubuntu
 
 base_media_tools:
   - ffmpeg                              #Tools for transcoding, streaming and playing of multimedia files

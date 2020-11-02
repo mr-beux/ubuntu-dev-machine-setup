@@ -4,7 +4,8 @@
   apt_repository:
     repo: ppa:fingerprint/fingerprint-gui
     state: present
-
+  when: ansible_os_family == "Debian"
+  
 - name: Install Biometrics Packages
   package:
     name: "{{ biometric_packages }}"

@@ -1,31 +1,46 @@
 ---
 
-- name: add googlechrome apt key
-  apt_key:
-    url: "{{ navigators_googlechrome_apt_key }}"
+- block:
 
-- name: add google chrome repo
-  apt_repository:
-    repo: "{{ navigators_googlechrome_repo }}"
-    state: present
-    filename: google-chrome
+  - name: add googlechrome apt key
+    apt_key:
+      url: "{{ navigators_googlechrome_apt_key }}"
+
+  - name: add google chrome repo
+    apt_repository:
+      repo: "{{ navigators_googlechrome_repo }}"
+      state: present
+      filename: google-chrome
+  when: ansible_os_family == "Debian"
 
 - name: install latest google chrome
-  apt:
+  package:
     name: google-chrome-stable
-    force_apt_get: yes
 
 - name: Install Internet packages
   package:
     name: "{{ navigators_internet_packages }}"
     state: present
 
+- name: Install Internet packages
+  package:
+    name: "{{ navigators_internet_packages_languages }}"
+    state: present
+  when: install_specific_languages
+
 #TODO debug https://github.com/alzadude/ansible-firefox-addon
 #- name: Install Firefox Addons
 #  firefox_addon:
 #    url: "{{ navigators_firefox_addons_url }}"
 #    state: present
-#  become: yes
 #  become_user: "{{ local_username }}"
+#  debugger: on_failed
+
+- name: "Install Video DownloadHelper Companion App 1.5.0 for encoding video for Addon VideoDownloadhelper"
+  apt:
+    deb: "{{ companion_app_VideoDownloadhelper_ubuntu_debian_url }}"
+  when:
+    - "'net.downloadhelper.coapp' not in ansible_facts.packages"
+    - ansible_os_family == "Debian"
 
 ...

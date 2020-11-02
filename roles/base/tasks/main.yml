@@ -9,11 +9,13 @@
 #    regexp: '^# deb http://archive.canonical.com/ubuntu bionic partner'
     regexp: "^# deb http://archive.canonical.com/ubuntu {{ansible_distribution_release}} partner"
     replace: "deb http://archive.canonical.com/ubuntu {{ansible_distribution_release}} partner"
+  when: ansible_os_family == "Debian"
 
 - name: Add PPA repository        #Collection of bleeding edge software, mandatory for Woeusb
   apt_repository:
     repo: "ppa:nilarimogard/webupd8"
     state: present
+  when: ansible_os_family == "Debian"
 
 #- name: Add PPA repository for conky-manager
 #  apt_repository:
@@ -24,11 +26,13 @@
   apt_repository:
     repo: "ppa:numix/ppa"
     state: present
+  when: ansible_os_family == "Debian"
 
 - name: Only run update_cache=yes if the last one is more than "{{ repo_manager_update_cache_valid_time }}" seconds ago
   apt:
     update_cache: yes
     cache_valid_time: "{{ repo_manager_update_cache_valid_time }}"
+  when: ansible_os_family == "Debian"
 
 - name: Remplace mount /tmp on tmpfs
   block:
@@ -113,12 +117,15 @@
     update_cache: yes
     upgrade: dist
     force_apt_get: yes
-  when: (ansible_os_family == "Debian")
+  when: ansible_os_family == "Debian"
 
 ## Actually on 29/10/20 on xubuntu 20, woeusb : Depends: libwxgtk3.0-0v5 (>= 3.0.4+dfsg) but it is not installable
-- name: Install libwxgtk manally (dependancy for woeusb)
+- name: Install libwxgtk manually (dependancy for woeusb)
   apt:
     deb: http://mirrors.kernel.org/ubuntu/pool/universe/w/wxwidgets3.0/libwxgtk3.0-0v5_3.0.4+dfsg-3_amd64.deb
+  when:
+    - "'libwxgtk3.0-0v5' not in ansible_facts.packages"
+    - ansible_os_family == "Debian"
 
 - name: Install archiving tools
   package:
@@ -157,6 +164,19 @@
     name: "{{ base_system_tools_laptop }}"
     state: present
   when: laptop_mode
+
+- name: Install specific packages for Intel Platform
+  package:
+    name: "{{ base_hardware }}"
+    state: present
+  when:
+    - not virtual_machine_mode
+    - '"GenuineIntel" in ansible_processor'
+
+- name: Install proprietary NVidia Driver
+  command: ubuntu-drivers autoinstall
+  tags: nvidia_driver
+  when: ansible_product_name == "X411UN"
 
 - name: Install download tools
   package:
@@ -206,7 +226,6 @@
       with_items:
         - export GOPATH=$HOME/go
         - export PATH=$PATH:$GOPATH/bin
-  become: yes
   become_user: "{{ local_username }}"
 
 - name: Install media packages
@@ -224,6 +243,7 @@
   package:
     name: "{{ base_language_tools }}"
     state: present
+  when: install_specific_languages
 
 - name: Install xfce packages
   package:
@@ -240,36 +260,21 @@
     version: master
     clone: yes
     update: yes
-  become: yes
   become_user: "{{ local_username }}"
 
-- block:
-    - name: Install virtualization tools
-      package:
-        name: "{{ base_virtualization_tools }}"
-        state: present
+- name: Configure Git mail account
+  git_config:
+    name: user.email
+    scope: global
+    value: "{{ git_mail_user_account }}"
+  become_user: "{{ local_username }}"
 
-    # add user to docker group to run docker commands without sudo
-    # add user to vboxusers group so that user can attach usb devices to guest OS
-    - name: Add user to docker and vboxusers groups
-      user:
-        name: "{{ local_username }}"
-        append: yes
-        generate_ssh_key: yes
-        ssh_key_bits: 4096
-        ssh_key_file: .ssh/id_rsa
-        groups:
-          - docker
-          - vboxusers
-          - libvirt
-#    - name: install virtualbox extensions pack
-#      shell: echo 'y' | vboxmanage extpack install --replace /usr/share/virtualbox-ext-pack/Oracle*
-
-    - name: Validate virtulization KVM installation	#TODO for testing actual user, need to reread /etc/password MAJ
-      command: "virsh -c qemu:///system list"
-      become: yes
-      become_user: "{{ local_username }}"
-  when: not virtual_machine_mode
+- name: Configure Git account name
+  git_config:
+    name: user.name
+    scope: global
+    value: Beux
+  become_user: "{{ local_username }}"
 
 - name: Install Python pip modules
   pip:
@@ -290,7 +295,7 @@
         name: "{{ base_openssh_server.service }}"
         state: started
         enabled: yes
-  when: not laptop_mode
+  when: not laptop_mode and (ansible_os_family == "Debian")
 
 - name: Define 1s in Grub Delay choice
   replace: dest=/etc/default/grub regexp="^(GRUB_TIMEOUT)=[0-9]*$" replace="\1=1"
@@ -320,7 +325,6 @@
   copy:
     src: redshift.conf
     dest: ~/.config/redshift.conf
-  become: yes
   become_user: "{{ local_username }}"
 
 - name: Active geolocalization for redshift
@@ -334,12 +338,39 @@
       allowed=true
       system=false
       users=
+
+- name: Deploy plank configuration menu entry
+  copy:
+    src: plank-preferences.desktop
+    dest: ~/.local/share/applications/plank-preferences.desktop
+  become_user: "{{ local_username }}"
+
 #Not like this now, cf https://doc.ubuntu-fr.org/redshift#comment_lancer_redshift_automatiquement_au_demarrage
 #- name: Active redshift on startUp for current user
 #  copy:
 #    src: redshift-gtk.desktop
 #    dest: ~/.config/autostart/redshift-gtk.desktop
-#  become: yes
 #  become_user: "{{ local_username }}"
+
+#- name: 'Optimise mount point for SSD (Ovoid ReWritting with noatime)'
+
+#- name:  Noatime option for your SSD sdb2 ext4 mount point
+#  ansible.posix.mount:
+#    path: /boot
+#    opts: noatime
+#    state: remounted
+#
+#- name:  Noatime option for your SSD sdb1 vfat mount point
+#  ansible.posix.mount:
+#    path: /boot/efi
+#    opts: noatime
+#    state: remounted
+#
+#- name: Noatime option for your SSD sdb3 lvm over lucks ext4 mount point
+#  ansible.posix.mount:
+#    path: /
+#    opts: noatime
+#    state: present
+
 
 ...

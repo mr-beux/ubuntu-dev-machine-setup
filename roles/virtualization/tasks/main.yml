@@ -1,0 +1,44 @@
+---
+
+- block:
+    - name: Install virtualization tools
+      package:
+        name: "{{ virtualization_tools }}"
+        state: present
+
+    # add user to docker group to run docker commands without sudo
+    # add user to vboxusers group so that user can attach usb devices to guest OS
+    - name: Add user to docker and vboxusers groups
+      user:
+        name: "{{ local_username }}"
+        append: yes
+        generate_ssh_key: yes
+        ssh_key_bits: 4096
+        ssh_key_file: .ssh/id_rsa
+        groups:
+          - docker
+          - vboxusers
+          - libvirt
+          - kvm
+
+    - name: Add the flathub flatpak repository remote to the system installation
+      community.general.flatpak_remote:
+        name: flathub
+        state: present
+        flatpakrepo_url: https://dl.flathub.org/repo/flathub.flatpakrepo
+
+    - name: Add the winepak flatpak repository remote to the system installation
+      community.general.flatpak_remote:
+        name: flathub
+        state: present
+        flatpakrepo_url: https://dl.winepak.org/repo/winepak.flatpakrepo
+
+  when: not virtual_machine_mode
+
+#    - name: install virtualbox extensions pack
+#      shell: echo 'y' | vboxmanage extpack install --replace /usr/share/virtualbox-ext-pack/Oracle*
+#    - name: Validate virtulization KVM installation	#TODO for testing actual user, need to reread /etc/password MAJ
+#      command: "virsh -c qemu:///system list"
+#      become_user: "{{ local_username }}"
+
+...
