@@ -262,18 +262,30 @@
     update: yes
   become_user: "{{ local_username }}"
 
-- name: Configure Git mail account
-  git_config:
-    name: user.email
-    scope: global
-    value: "{{ git_mail_user_account }}"
-  become_user: "{{ local_username }}"
+- block:
+  - name: Configure Git mail account
+    git_config:
+      name: user.email
+      scope: global
+      value: "{{ git_mail_user_account }}"
 
-- name: Configure Git account name
-  git_config:
-    name: user.name
-    scope: global
-    value: Beux
+  - name: Configure Git account name
+    git_config:
+      name: user.name
+      scope: global
+      value: Beux
+
+  - name: Configure git core editor = vim
+    community.general.git_config:
+      name: core.editor
+      scope: global
+      value: vim
+
+  - name: Configure git alias lg
+    git_config:
+      name: alias.lg
+      scope: global
+      value: log --graph --pretty=format:''%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'' --abbrev-commit
   become_user: "{{ local_username }}"
 
 - name: Install Python pip modules
