@@ -350,11 +350,24 @@
       allowed=true
       system=false
       users=
-
+    
 - name: Deploy plank configuration menu entry
-  copy:
-    src: plank-preferences.desktop
-    dest: ~/.local/share/applications/plank-preferences.desktop
+  block:
+    - name: Check configuration app directory
+      stat:
+        path: ~/.local/share/applications
+      register: apps_path_dir
+        
+    - name: "Ansible Create configuration app directory if not exists"
+      file:
+        path: ~/.local/share/applications
+        state: directory
+      when: apps_path_dir.stat.exists == false 
+    
+    - name: Copy plank configuration menu entry file
+      copy:
+        src: plank-preferences.desktop
+        dest: ~/.local/share/applications/plank-preferences.desktop
   become_user: "{{ local_username }}"
 
 #Not like this now, cf https://doc.ubuntu-fr.org/redshift#comment_lancer_redshift_automatiquement_au_demarrage
