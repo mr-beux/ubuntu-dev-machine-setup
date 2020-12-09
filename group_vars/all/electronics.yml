@@ -1,0 +1,10 @@
+---
+
+electronics_arduino_tools:
+  - arduino                             #IDE and libraries for arduino board via snap
+
+electronics_tools:
+  - flashrom                            #Identify, read, write, erase, and verify BIOS/ROM/flash chips
+  - simulide                            #Simple real time electronic circuit simulator
+
+...

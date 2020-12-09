@@ -1,0 +1,13 @@
+---
+
+- name: Install arduino tools
+  package:
+    name: "{{ electronics_arduino_tools }}"
+    state: present
+
+- name: Install electronic programming tools
+  package:
+    name: "{{ electronics_tools }}"
+    state: present
+
+...

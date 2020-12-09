@@ -177,6 +177,7 @@
   command: ubuntu-drivers autoinstall
   tags: nvidia_driver
   when: ansible_product_name == "X411UN"
+#Todo = improve with "lspci | grep -i nvidia"
 
 - name: Install download tools
   package:
@@ -350,20 +351,20 @@
       allowed=true
       system=false
       users=
-    
+
 - name: Deploy plank configuration menu entry
   block:
     - name: Check configuration app directory
       stat:
         path: ~/.local/share/applications
       register: apps_path_dir
-        
+
     - name: "Ansible Create configuration app directory if not exists"
       file:
         path: ~/.local/share/applications
         state: directory
-      when: apps_path_dir.stat.exists == false 
-    
+      when: apps_path_dir.stat.exists == false
+
     - name: Copy plank configuration menu entry file
       copy:
         src: plank-preferences.desktop

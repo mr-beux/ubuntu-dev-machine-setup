@@ -1,0 +1,8 @@
+---
+
+- name: sweethome3d and all addons
+  package:
+    name: "{{ sweethome3d_packages }}"
+    state: present
+
+...

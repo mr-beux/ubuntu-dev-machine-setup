@@ -109,16 +109,16 @@
         regexp: 'tmux kill-session -t'
         path: ~/.bashrc
 
-    - name: check if .zshrc exists in user's home dir
+    - name: check if .shell_aliases sourced by .zshrc exists in user's home dir
       stat:
-        path: "~{{ local_username }}/.tmux.conf"
+        path: "~{{ local_username }}/.shell_aliases"
       register: zshrc
 
     - name: Define alias in current user for tmuxka = tmux kill all actives sessions in zshrc
       lineinfile:
         line: 'alias tmuxka=''tmux list-sessions | awk "BEGIN{FS=\":\"}{print \$1}" | xargs -n 1 tmux kill-session -t'''
         regexp: 'tmux kill-session -t'
-        path: ~/.zshrc
+        path: "~{{ local_username }}/.shell_aliases"
       when: zshrc.stat.exists
 
     - name: Tunning Tmux-bash-completion for current user
