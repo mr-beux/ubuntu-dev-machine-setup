@@ -44,6 +44,7 @@ base_system_tools:
   - exfat-fuse                          #Read and write exFAT driver for FUSE
   - exfat-utils                         #Utilities to create, check, label and dump exFAT filesystem
   - efibootmgr                          #Interact with the EFI Boot Manager
+  - f3                                  #Test real flash memory capacity
   - fatrace                             #Report system wide file access events
   - flatpak                             #Application deployment framework for desktop apps
   - htop                                #Interactive processes viewer
