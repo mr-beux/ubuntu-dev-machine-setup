@@ -1,0 +1,13 @@
+---
+
+- name: Install Messenging apps via snap
+  community.general.snap:
+    name: "{{ messengers_snaps }}"
+
+#Cette version du paquet Snap "skype" a été publiée avec un confinement classique. Elle pourrait donc apporter des modifications arbitraires au système, au-delà de l'espace mémoire protégé (« sandbox ») dans lequel les paquets Snap sont généralement confinés, ce qui peut créer un risque pour votre système.
+- name: Install Messenging apps via snap with classic option
+  community.general.snap:
+    name: "{{ messengers_snaps_classic }}"
+    classic: yes
+
+...

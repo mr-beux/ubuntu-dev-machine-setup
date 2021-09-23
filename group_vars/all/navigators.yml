@@ -24,8 +24,9 @@ navigators_firefox_addons_url:
   - https://addons.mozilla.org/fr/firefox/addon/grammarly-1
   - https://addons.mozilla.org/fr/firefox/addon/foxyproxy-standard/
 
-#Video DownloadHelper Companion App 1.5.0 for encoding video for Addon VideoDownloadhelper
-companion_app_VideoDownloadhelper_ubuntu_debian_url: "https://github.com/mi-g/vdhcoapp/releases/download/v1.5.0/net.downloadhelper.coapp-1.5.0-1_amd64.deb"
-companion_app_VideoDownloadhelper_othersx64_url: "https://github.com/mi-g/vdhcoapp/releases/download/v1.5.0/net.downloadhelper.coapp-1.5.0-1_amd64.tar.gz"
+# TODO improuve detection of lastest version download url for https://github.com/mi-g/vdhcoapp/releases/latest
+# Video DownloadHelper Companion App for encoding video for Addon VideoDownloadhelper
+companion_app_VideoDownloadhelper_ubuntu_debian_url: "https://github.com/mi-g/vdhcoapp/releases/download/v1.6.1/net.downloadhelper.coapp-1.6.1-1_amd64-glibc-2.23.deb"
+companion_app_VideoDownloadhelper_othersx64_url: "https://github.com/mi-g/vdhcoapp/releases/download/v1.6.1/net.downloadhelper.coapp-1.6.1-1_amd64-glibc-2.23.tar.gz"
 
 ...

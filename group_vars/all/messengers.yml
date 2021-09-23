@@ -1,0 +1,9 @@
+---
+
+messengers_snaps_classic:
+  - skype                                #
+
+messengers_snaps:
+  - signal-desktop                       #
+
+...

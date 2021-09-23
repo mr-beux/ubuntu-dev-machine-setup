@@ -17,6 +17,17 @@ antivirus_packages:
 #  - clamav-daemon                       # for real time scanning; not installed in case it impacts performance
 
 antivirus_packages_gnome:
-  - clamtk-gnome                        # right click clamav scan access from nautilus
+  - clamtk-gnome                        #Right click clamav scan access from nautilus
+
+security_passwords_store:
+  - keepassxc                           #Gestionnaire de mots de passe multiplateforme
+  - upass                               #Console UI for pass
+
+security_android_Mobile_Verification_Toolkit:
+  - python3                             #Interactive high-level object-oriented language (default python3 version)
+  - python3-pip                         #Python package installer
+  - libusb-1.0-0                        #Userspace USB programming library
+  - sqlite3                             #Command line interface for SQLite 3
+  - android-sdk                         #Software development kit for Android platform
 
 ...

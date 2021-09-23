@@ -28,7 +28,7 @@
     state: present
   when: install_specific_languages
 
-#TODO debug https://github.com/alzadude/ansible-firefox-addon
+#TODO debug https://github.com/alzadude/ansible-firefox-addon rien a faire, module a réecrire, vieux et seulement compatible Fedora
 #- name: Install Firefox Addons
 #  firefox_addon:
 #    url: "{{ navigators_firefox_addons_url }}"
@@ -36,7 +36,7 @@
 #  become_user: "{{ local_username }}"
 #  debugger: on_failed
 
-- name: "Install Video DownloadHelper Companion App 1.5.0 for encoding video for Addon VideoDownloadhelper"
+- name: "Install Video DownloadHelper Companion App for encoding video for Addon VideoDownloadhelper"
   apt:
     deb: "{{ companion_app_VideoDownloadhelper_ubuntu_debian_url }}"
   when:

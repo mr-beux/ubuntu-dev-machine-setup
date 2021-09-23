@@ -13,6 +13,7 @@
 - import_playbook: electronics.yml
 - import_playbook: virtualization.yml
 - import_playbook: sweethome3d.yml
+- import_playbook: messengers.yml
 - import_playbook: post_install.yml
 
 ...

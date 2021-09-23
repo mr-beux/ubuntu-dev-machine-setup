@@ -30,12 +30,14 @@ base_productivity_tools:
 
 base_desktop_tools:
   - shotwell                            #Digital photo organizer
+  - krita                               #Pixel-based image manipulation program
 
 base_system_tools:
   - atop                                #Monitor for system resources and process activity
   - bleachbit                           #Delete unnecessary files from the system
   - bonnie++                            #Hard drive benchmark suite
   - ccze                                #Robust, modular log coloriser
+  - cifs-utils                          #Common Internet File System utilities
   - conky-all                           #Highly configurable system monitor (all features enabled)
 #  - conky-manager don't exist anymore !
   - davfs2                              #Mount a WebDAV resource as a regular file system
@@ -56,6 +58,7 @@ base_system_tools:
   - iptraf-ng                           #Next Generation Interactive Colorful IP LAN Monitor
   - lshw                                #Information about hardware configuration
   - mtr                                 #Full screen ncurses and X11 traceroute tool
+  - makepasswd                          #Generate and encrypt passwords
 ##Not Available on *ubuntu 20.04  - namebench                           #DNS benchmark utility
   - ncat                                #NMAP netcat reimplementation
   - ncdu                                #Ncurses disk usage viewer
@@ -63,11 +66,15 @@ base_system_tools:
   - netcat                              #TCP/IP swiss army knife -- transitional package = netcat-traditional - TCP/IP swiss army knife
   - netcat-openbsd                      #TCP/IP swiss army knife, OpenBSD rewrite of netcat, including support for IPv6, proxies, and Unix sockets.
   - openvswitch-switch                  #Open vSwitch switch implementations
+  - linux-tools-generic                 #Linux kernel version generic tools for latest installed kernel
+ # - linux-tools-{{ ansible_kernel }}    #Linux kernel version generic tools for kernel in use
   - ppa-purge                           #Disables a PPA and reverts to official packages
   - progress                            #Coreutils Progress Viewer (formerly known as 'cv')
   - pwgen                               #Password generator
   - redshift-gtk                        #Adjusts the color temperature of your screen with GTK+ integration
   - remmina                             #GTK+ Remote Desktop Client
+  - samba                               #SMB/CIFS file, print, and login server for Unix
+  - smbclient                           #Command-line SMB/CIFS clients for Unix
   - screen                              #Terminal multiplexer with VT100/ANSI terminal emulation
   - smartmontools                       #Control and monitor storage systems using S.M.A.R.T.
   - sshpass                             #Non-interactive ssh password authentication
@@ -80,6 +87,10 @@ base_system_tools:
 ###Not usefull on desktop, usefull on Server version
 #      - apticron                           #Simple tool to mail about pending package updates - cron version
 #      - fail2ban                           #ban hosts that cause multiple authentication errors
+  - whois                               #Client WHOIS intelligent
+  - wondershaper                        #Easy to use traffic shaping script
+
+
 
 base_system_tools_gnome:
   - gnome-calculator                    #GNOME calculator is a powerful graphical calculator with financial, logical and scientific modes
@@ -95,6 +106,7 @@ base_system_tools_laptop:
 #  - powertop                            #Tool for diagnose issues with power consumption and power management
   - tlp                                 #Tlp - Save battery power on laptops
   - tlp-rdw                             #Radio device wizard
+  - tlpui                               #A GTK-UI to change TLP configuration files easily.
 #  - thermald                            #Thermal monitoring and controlling daemon
   - indicator-cpufreq                   #CPU frequency scaling indicator
   - lm-sensors                          #Utilities to read temperature/voltage/fan sensors
@@ -216,6 +228,8 @@ base_language_tools:
   - hyphen-fr                           #Schémas de césure en français, Ces motifs peuvent être utilisés par les programmes qui exploitent libhyphen, tel LibreOffice.
   - manpages-fr                         #French version of the manual pages about using GNU/Linux
   - manpages-fr-extra                   #French version of the manual pages
+  - mythes-fr                           #French thésaurus for LibreOffice
+  - aspell-fr                           #French dictionnary for aspell
 
 base_xfce_tunning_tools:
   - catfish                             #File searching tool which is configurable via the command line
@@ -242,4 +256,7 @@ base_python_pip_modules:
   - flake8-docstrings                 #Extension for flake8 which uses pydocstyle to check docstrings
   - pywinrm                           #Python library for Windows Remote Management
 
+#proxmoxer and requests are mandatory for (proxmox et proxmox_kvm) ansible modules
+#flake8 and flake8-docstrings for Linter (in ATOM) which is a static code analysis tool from lint
+#pywinrm for Winrm
 ...

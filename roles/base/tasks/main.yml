@@ -22,6 +22,12 @@
 #    repo: "ppa:teejee2008/ppa"6os7jSSxl91rIz7G7UbJbwrGDh6WxzCgN3zeqBwG
 #    state: present
 
+- name: Add PPA repository for tlpui
+  apt_repository:
+    repo: "ppa:linuxuprising/apps"
+    state: present
+  when: ansible_os_family == "Debian"
+
 - name: Add PPA repository for numix flat design icons
   apt_repository:
     repo: "ppa:numix/ppa"
@@ -175,9 +181,7 @@
 
 - name: Install proprietary NVidia Driver
   command: ubuntu-drivers autoinstall
-  tags: nvidia_driver
-  when: ansible_product_name == "X411UN"
-#Todo = improve with "lspci | grep -i nvidia"
+  tags: proprietary_drivers
 
 - name: Install download tools
   package:
@@ -293,9 +297,6 @@
   pip:
     name: "{{ base_python_pip_modules }}"
   tags: pip_modules
-#proxmoxer and requests are mandatory for (proxmox et proxmox_kvm) ansible modules
-#flake8 and flake8-docstrings for Linter (in ATOM) which is a static code analysis tool from lint
-#pywinrm for Winrm
 
 - block:
     - name: Install openssh-server package (1/2)

@@ -10,4 +10,9 @@
     name: "{{ electronics_tools }}"
     state: present
 
+- name: Install electric Schematic tools
+  package:
+    name: "{{ electronics_schematic_tools }}"
+    state: present
+
 ...
