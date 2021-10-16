@@ -3,6 +3,10 @@
 atom_tools:
   - atom                                #Atom text editor from GitHub
 
+atom_gpg_url: "https://packagecloud.io/AtomEditor/atom/gpgkey"
+
+atom_repo: "deb [arch=amd64] https://packagecloud.io/AtomEditor/atom/any/ any main"
+
 atom_plugins:
   - compare-files                       #Compares two files and show the diff
   - linter                              #Affiche les erreurs dans votre code
