@@ -10,4 +10,22 @@
     name: "{{ messengers_snaps_classic }}"
     classic: yes
 
+#MS Teams is not in defaut package in *ubuntu20.04
+- name: Add Microsoft Apt signing key
+  apt_key:
+    url: "{{ messengers_teams_key_url }}"
+    state: present
+  when: ansible_os_family == "Debian"
+
+- name: Add Microsoft Teams repository into sources list
+  apt_repository:
+    repo: "{{ messengers_teams_repo_url }}"
+    state: present
+  when: ansible_os_family == "Debian"
+
+- name: Install Messenger like Teams Packages
+  package:
+    name: "{{ messengers_packages }}"
+    state: present
+    
 ...
