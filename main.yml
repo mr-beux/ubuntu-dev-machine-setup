@@ -15,5 +15,6 @@
 - import_playbook: sweethome3d.yml
 - import_playbook: messengers.yml
 - import_playbook: post_install.yml
+- import_playbook: terraform.yml
 
 ...
