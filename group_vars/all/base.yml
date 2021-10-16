@@ -49,6 +49,7 @@ base_system_tools:
   - f3                                  #Test real flash memory capacity
   - fatrace                             #Report system wide file access events
   - flatpak                             #Application deployment framework for desktop apps
+  - gparted                             #GNOME partition editor
   - htop                                #Interactive processes viewer
   - iftop                               #Displays bandwidth usage information on an network interface
   - iotop                               #Simple top-like I/O monitor
@@ -201,6 +202,8 @@ base_developer_tools:
 #Mandatory for ansible module package_facts for Debian like, in fisrt tasks for detect insatlled package = Gui Env
 base_developer_tools_debian:
   - python3-apt                         #Python3 interface for libapt-pkg
+  #Todo : the best go debugger delve
+  #cf: https://github.com/go-delve/delve/tree/master/Documentation/installation
 
 base_developer_tools_gnome:
   - gedit-plugins                       #Set of plugins for gedit
