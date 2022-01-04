@@ -1,0 +1,6 @@
+---
+
+schematcis_packages:
+  - dia                       #Diagram editor
+  - dia-rib-network           #network icons scheme for Dia
+  - dia-shapes                #Diagram editor (additional shapes)
