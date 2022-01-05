@@ -40,7 +40,7 @@
     cache_valid_time: "{{ repo_manager_update_cache_valid_time }}"
   when: ansible_os_family == "Debian"
 
-- name: Remplace mount /tmp on tmpfs
+- name: Replace mount /tmp on tmpfs
   block:
     - name: Clear the existing /tmp dir (1/5)
       shell: "/bin/rm -rf *"
@@ -293,6 +293,11 @@
       value: log --graph --pretty=format:''%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'' --abbrev-commit
   become_user: "{{ local_username }}"
 
+- name: Set default text editor to vim
+  alternatives:
+    name: editor
+    path: /usr/bin/vim.basic
+    
 - name: Install Python pip modules
   pip:
     name: "{{ base_python_pip_modules }}"
