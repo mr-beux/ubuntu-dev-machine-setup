@@ -7,7 +7,8 @@ messengers_snaps:
   - signal-desktop                       #
 
 messengers_packages:
-  - teams
+  - teams                                #Microsoft Teams for Linux is your chat-centered workspace in Office 365.
+  - telegram-desktop                     #fast and secure messaging application
 
 messengers_teams_repo_url: "deb [arch=amd64] https://packages.microsoft.com/repos/ms-teams stable main"
 

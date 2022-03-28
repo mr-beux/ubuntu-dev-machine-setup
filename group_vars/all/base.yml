@@ -1,6 +1,9 @@
 ---
 
-git_mail_user_account:   "mr.beux@hotmail.fr"
+#git_mail_user_account:   "mr.beux@hotmail.fr"
+#git_account_name: "Beux"
+git_mail_user_account:   "benoit.albiac@inrae.fr"
+git_account_name: "Benoit"
 
 base_archiving_tools:
   - arj                                 #Archiver for .arj files
@@ -176,6 +179,7 @@ base_developer_tools:
   - python3-jmespath                    #JSON Matching Expressions (Python 3)
   - python3-pep8                        #Python PEP 8 code style checker - Python 3
   - python3-pip                         #Python package installer
+  - python3-venv
   - ranger                              #Console File Manager with VI Key Bindings
   - recode                              #Character set conversion utility
   - remmina                             #GTK+ Remote Desktop Client
@@ -202,6 +206,9 @@ base_developer_tools:
 #Mandatory for ansible module package_facts for Debian like, in fisrt tasks for detect insatlled package = Gui Env
 base_developer_tools_debian:
   - python3-apt                         #Python3 interface for libapt-pkg
+  - python3-heatclient                  #client library and CLI for OpenStack Heat - Python 3.x
+  - python3-openstackclient             #OpenStack Command-line Client - Python 3.x
+
   #Todo : the best go debugger delve
   #cf: https://github.com/go-delve/delve/tree/master/Documentation/installation
 
@@ -258,6 +265,8 @@ base_python_pip_modules:
   - flake8                            #The modular source code checker: pep8, pyflakes and co
   - flake8-docstrings                 #Extension for flake8 which uses pydocstyle to check docstrings
   - pywinrm                           #Python library for Windows Remote Management
+  - awscli                            #Universal Command Line Environment for AWS
+  - awscli-plugin-endpoint            #Endpoint plugin for AWS CLI
 
 #proxmoxer and requests are mandatory for (proxmox et proxmox_kvm) ansible modules
 #flake8 and flake8-docstrings for Linter (in ATOM) which is a static code analysis tool from lint

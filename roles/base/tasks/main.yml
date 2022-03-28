@@ -278,7 +278,7 @@
     git_config:
       name: user.name
       scope: global
-      value: Beux
+      value: "{{ git_account_name }}"
 
   - name: Configure git core editor = vim
     community.general.git_config:
@@ -297,7 +297,7 @@
   alternatives:
     name: editor
     path: /usr/bin/vim.basic
-    
+
 - name: Install Python pip modules
   pip:
     name: "{{ base_python_pip_modules }}"
