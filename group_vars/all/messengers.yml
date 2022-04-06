@@ -1,10 +1,12 @@
 ---
 
 messengers_snaps_classic:
-  - skype                                #
+  - skype                                #One Skype for all your devices. New features. New look. All Skype.
+  - slack                                #Signal Desktop
 
 messengers_snaps:
-  - signal-desktop                       #
+  - signal-desktop                       #Signal Desktop
+  - mattermost-desktop                   #Open source, private cloud Slack-alternative
 
 messengers_packages:
   - teams                                #Microsoft Teams for Linux is your chat-centered workspace in Office 365.

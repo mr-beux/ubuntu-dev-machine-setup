@@ -290,7 +290,7 @@
     git_config:
       name: alias.lg
       scope: global
-      value: log --graph --pretty=format:''%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'' --abbrev-commit
+      value: log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
   become_user: "{{ local_username }}"
 
 - name: Set default text editor to vim
