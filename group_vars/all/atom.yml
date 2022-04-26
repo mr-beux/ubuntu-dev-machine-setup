@@ -26,5 +26,8 @@ atom_plugins:
   - emmet                               #Emmet – the essential tool for web developers
   - git-time-machine                    #Visually interact with git commit history for a file
   - merge-conflicts                     #Resolve git conflicts within Atom
+  - language-ansible                    #Ansible syntax package
+  - linter-scss-lint                    #Lint SCSS on the fly, using scss-lint 
+  - linter-sass-lint                    #Atom Linter plugin to lint your Sass/SCSS with pure node sass-lint
 
 ...
