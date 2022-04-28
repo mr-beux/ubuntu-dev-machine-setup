@@ -1,0 +1,19 @@
+---
+
+virtualization_tools:
+#  - vagrant                             #Tool for building and distributing virtualized development environments
+  - virtualbox                          #Metapackage for virtualbox-savvy projects
+#  - virtualbox-ext-pack                 #Extra capabilities for VirtualBox, downloader.
+  - docker.io                           #Linux container runtime
+  - docker-compose                      #Punctual, lightweight development environments using Docker
+  - qemu                                #Fast processor emulator
+##Not Available on *ubuntu 20.04  - ubuntu-vm-builder                   #Script which automates the process of creating a ready to use VM based on Ubuntu
+  - qemu-kvm 				                    #Software that provides hardware emulation for the KVM hypervisor.
+  - libvirt-daemon-system 		          #Configuration files to run the libvirt daemon as a system service.
+  - libvirt-clients 			              #Software for managing virtualization platforms.
+  - bridge-utils 			                  #A set of command-line tools for configuring ethernet bridges.
+  - virtinst 				                    #A set of command-line tools for creating virtual machines.
+  - virt-manager 			                  #An easy-to-use GUI interface and supporting command-line utilities for managing virtual machines through libvirt.
+  - cpu-checker				                  #Tools to help evaluate certain CPU (or BIOS) features
+
+...

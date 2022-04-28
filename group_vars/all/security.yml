@@ -1,8 +1,33 @@
 ---
 
 security_packages:
-  - clamav
-  - clamtk-gnome    # right click clamav scan access from nautilus
-#  - clamav-daemon  # for real time scanning; not installed in case it impacts performance
+  - chkrootkit                          #Détecteur de rootkit
+  - wipe                                #suppression sécurisée de fichiers
+  - nwipe                               #utilitaire pour effacer des disques de façon sûre
+  - enigmail                            #prise en change de GPG pour Thunderbird et Icedove de Debian
+  - zulucrypt-cli                       #outil pour chiffrer des volumes
+  - zulucrypt-gui                       #interface graphique pour zulucrypt-cli
+  - keychain                            #key manager for OpenSSH
+  - rsh-client                          #Client programs for remote shell connections
+  - nmap
+
+antivirus_packages:
+  - clamtk                              #Graphical front-end for ClamAV
+  - clamav                              #Anti-virus utility for Unix - command-line interface
+#  - clamav-daemon                       # for real time scanning; not installed in case it impacts performance
+
+antivirus_packages_gnome:
+  - clamtk-gnome                        #Right click clamav scan access from nautilus
+
+security_passwords_store:
+  - keepassxc                           #Gestionnaire de mots de passe multiplateforme
+  - upass                               #Console UI for pass
+
+security_android_Mobile_Verification_Toolkit:
+  - python3                             #Interactive high-level object-oriented language (default python3 version)
+  - python3-pip                         #Python package installer
+  - libusb-1.0-0                        #Userspace USB programming library
+  - sqlite3                             #Command line interface for SQLite 3
+  - android-sdk                         #Software development kit for Android platform
 
 ...

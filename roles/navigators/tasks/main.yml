@@ -1,0 +1,92 @@
+---
+
+- block:
+
+  - name: add googlechrome apt key
+    apt_key:
+      url: "{{ navigators_googlechrome_apt_key }}"
+
+  - name: add google chrome repo
+    apt_repository:
+      repo: "{{ navigators_googlechrome_repo }}"
+      state: present
+      filename: google-chrome
+  when: ansible_os_family == "Debian"
+
+- name: install latest google chrome
+  package:
+    name: google-chrome-stable
+
+- name: Install Internet packages
+  package:
+    name: "{{ navigators_internet_packages }}"
+    state: present
+
+- name: Install Internet packages
+  package:
+    name: "{{ navigators_internet_packages_languages }}"
+    state: present
+  when: install_specific_languages
+
+#TODO debug https://github.com/alzadude/ansible-firefox-addon rien a faire, module a réecrire, vieux et seulement compatible Fedora
+#Now les modules et la conf sont synchronisés dans firefox donc osef
+#- name: Install Firefox Addons
+#  firefox_addon:
+#    url: "{{ navigators_firefox_addons_url }}"
+#    state: present
+#  become_user: "{{ local_username }}"
+#  debugger: on_failed
+
+# TODO improuve detection of lastest version download url for https://github.com/mi-g/vdhcoapp/releases/latest
+#https://api.github.com/mi-g/vdhcoapp/releases ne renvoie rien ! donc toutes méthode a base de api -> KO
+#CF : https://localcoder.org/ansible-download-latest-release-binary-from-github-repo
+#https://fabianlee.org/2021/02/16/bash-determining-latest-github-release-tag-and-version/
+#- name: Get companion_app_VideoDownloadhelper_project_url latest tag
+#  github_release:
+#    user: xxxxxxxxxxxxx      #The GitHub account that owns the repository ! Fuck, meme avec mes credentials, ca ne passe pas
+#    action: latest_release
+#    repo: "{{ companion_app_VideoDownloadhelper_repo }}"
+#  register: companion_app_latest
+
+#- name: set headers more location
+#  set_fact:
+#    headers_more_location: /tmp/coapptmp
+#
+#- name: git clone headers-more-nginx-module
+#  git:
+#    repo: "https://github.com/{{ companion_app_VideoDownloadhelper_repo }}"
+#    dest: "{{ headers_more_location }}"
+#    depth: 1
+#    update: no
+#
+#- name: get new tags from remote
+#  command: "git fetch --tags"
+#  args:
+#    chdir: "{{ headers_more_location }}"
+#
+#- name: get latest tag
+#  command: "git rev-list --tags --max-count=1"
+#  args:
+#    chdir: "{{ headers_more_location }}"
+#  register: tags_rev_list
+#
+#- name: get latest tag name
+#  command: "git describe --tags {{ tags_rev_list.stdout }}"
+#  args:
+#    chdir: "{{ headers_more_location }}"
+#  register: latest_tag
+#
+#- name: checkout the latest version
+#  command: "git checkout {{ latest_tag.stdout }}"
+#  args:
+#    chdir: "{{ headers_more_location }}"
+
+
+- name: "Install Latest Video DownloadHelper Companion App for encoding video for Addon VideoDownloadhelper"
+  apt:
+    #deb: "https://github.com/{{ companion_app_VideoDownloadhelper_repo }}/releases/download/{{ companion_app_latest['tag'] }}/net.downloadhelper.coapp-{{ companion_app_latest['tag'] | regex_replace('^v','') }}-1_amd64.deb"
+    deb: "{{ companion_app_VideoDownloadhelper_ubuntu_debian_url }}"
+  when:
+    - "'net.downloadhelper.coapp' not in ansible_facts.packages"
+    - ansible_os_family == "Debian"
+...

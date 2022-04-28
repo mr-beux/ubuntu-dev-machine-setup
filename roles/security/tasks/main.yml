@@ -1,9 +1,71 @@
 ---
 
-- name: install security packages
-  apt:
+- name: Add PPA repository for keepassxc (Up2date)
+  apt_repository:
+    repo: ppa:phoerious/keepassxc
+    state: present
+  when: ansible_os_family == "Debian"
+
+- name: Install Security packages
+  package:
     name: "{{ security_packages }}"
     state: present
-    force_apt_get: yes
+
+- name: Install Passwords Store packages
+  package:
+    name: "{{ security_passwords_store }}"
+    state: present
+
+- name: Install Antivirus packages
+  package:
+    name: "{{ antivirus_packages }}"
+    state: present
+
+- name: Install Antivirus packages for gnome
+  package:
+    name: "{{ antivirus_packages_gnome }}"
+    state: present
+  when: "'gnome-terminal' in ansible_facts.packages"
+
+- name: Automatic Update of virus database via cron.daily
+  blockinfile:
+    path: /etc/cron.daily/clamav
+    state: present
+    create: yes
+    marker: "# {mark} Ansible Automatic Update of virus database"
+    block: |
+      #!/bin/sh
+      # https://ubuntuforums.org/showthread.php?t=1032147
+      /etc/init.d/clamav-freshclam stop
+      /usr/bin/freshclam -v >> /var/log/resul_freshclam.txt
+      /etc/init.d/clamav-freshclam start
+
+- file:
+    path: /etc/cron.daily/clamav
+    owner: root
+    group: root
+    mode: 0755
+
+- file:
+    path: /var/log/resul_freshclam.txt
+    owner: root
+    group: root
+    mode: 0755
+    state: touch
+    
+- lineinfile:
+    path: /etc/clamav/freshclam.conf
+    regexp: '^SafeBrowsing'
+    line: '#SafeBrowsing'
+
+- name: Install Antivirus packages
+  package:
+    name: "{{ security_android_Mobile_Verification_Toolkit }}"
+    state: present
+
+- name: Install MVT via PIP3
+  pip:
+    name: mvt
+    executable: pip3
 
 ...

@@ -1,0 +1,10 @@
+---
+
+sweethome3d_packages:
+  - sweethome3d                     #Application de design intérieur en 2D avec un aperçu en 3D
+  - sweethome3d-furniture           #Application de design intérieur en 2D avec un aperçu en 3D (meubles supplémentaires)
+  - sweethome3d-furniture-editor    #Éditeur de bibliothèque de meubles Sweet Home 3D
+  - sweethome3d-furniture-nonfree   #Application de design intérieur en 2D avec un aperçu en 3D (meubles supplémentaires non libres)
+  - sweethome3d-textures-editor     #Éditeur de bibliothèques de textures Sweet Home 3D
+
+...

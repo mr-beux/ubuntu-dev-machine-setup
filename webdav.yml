@@ -1,0 +1,13 @@
+---
+
+- hosts: localhost
+  roles:
+    - webdav
+  vars_prompt:
+    - name: webdav_password
+      prompt: What is your webdav account password ?
+      private: yes
+      encrypt: sha512_crypt
+      confirm: yes
+     salt_size: 7
+...

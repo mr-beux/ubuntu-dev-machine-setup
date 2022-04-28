@@ -1,30 +1,38 @@
 ---
 
-- block:
+- name: Get stats of the fonts directory
+  stat:
+    path: "~{{ local_username }}/.local/share/fonts"
+  register: font_dir
+
+- name: deploy beautifull fonts
+  block:
     - name: create local fonts directory
       file:
         path: "~{{ local_username }}/.local/share/fonts"
         state: directory
-  become: yes
-  become_user: "{{ local_username }}"
+      when: font_dir.stat.isdir is not defined
 
-- block:
+    - name: find fonts already installed
+      find:
+        paths: "~{{ local_username }}/.local/share/fonts/"
+      register: fonts_installed
+
     - name: download nerd fonts to local fonts folder
       get_url:
         url: "{{ item  }}"
         dest: "~{{ local_username }}/.local/share/fonts/"
       with_items: "{{ terminal_customizations_nerd_fonts }}"
-  become: yes
-  become_user: "{{ local_username }}"
-
-- name: refresh fonts cache
-  shell: "fc-cache -fv"
-  become: yes
+      when: fonts_installed.matched != terminal_customizations_nerd_fonts|length
+      notify:
+        - refresh fonts cache
+      debugger: on_failed
   become_user: "{{ local_username }}"
 
 # fix for https://github.com/gnunn1/tilix/wiki/VTE-Configuration-Issue using option 2
 # also, set font to SourceCodePro+Powerline+Awesome Regular for tmux powerline
-- block:
+- name: deploy tilix config
+  block:
     - name: copy tilix config template
       copy:
         src: tilix.dconf
@@ -34,11 +42,37 @@
     - name: import modified tilix config
       shell: dconf load /com/gexperts/Tilix/ < /tmp/tilix.dconf
       ignore_errors: yes
-  become: yes
   become_user: "{{ local_username  }}"
 
-# sample .tmux.conf file ready to use
-- block:
+- name: screenrc tunning
+  block:
+    - name: .screenrc tunning for current user
+      blockinfile:
+        path: ~/.screenrc
+        state: present
+        create: yes
+        marker: "# {mark} Screen RC tunning"
+        block: |
+          hardstatus alwayslastline "%{= RY}%H %{kG}%{G} Screen(s): %{c}%w %=%{kG}%c  %D, %M %d %Y  LD:%l"
+          startup_message off
+          msgwait 1
+          defscrollback 100000
+          nethack on
+      become_user: "{{ local_username  }}"
+
+    - name: .screenrc tunning for user root
+      blockinfile:
+        dest: ~/.screenrc
+        create: yes
+        block: |
+          hardstatus alwayslastline "%{= RY}%H %{kG}%{G} Screen(s): %{c}%w %=%{kG}%c  %D, %M %d %Y  LD:%l"
+          startup_message off
+          msgwait 1
+          defscrollback 100000
+          nethack on
+
+- name: tmux tunning for current user
+  block:
     - name: check if .tmux.conf exists in user's home dir
       stat:
         path: "~{{ local_username }}/.tmux.conf"
@@ -50,12 +84,95 @@
         dest: "~{{ local_username }}/.tmux.conf.orig"
       when: dottmuxdotconf.stat.exists
 
-    - name: copy the sample .tmux.conf file
+    - name: Tunning Tmux conf for current user (git clone)
+      git:
+        repo: 'https://github.com/gpakosz/.tmux.git'
+        dest: ~/.tmux/
+##        force: yes    #not everytime erased
+
+    - name: Tunning Tmux conf for current user by Creating a symbolic link
+      file:
+        src: ~/.tmux/.tmux.conf
+        dest: ~/.tmux.conf
+        state: link
+
+    - name: Tunning Tmux conf for current user by Creating a symbolic link
       copy:
-        src: .tmux.conf
-        dest: "~{{ local_username }}/.tmux.conf"
-        force: yes
-  become: yes
-  become_user: "{{ local_username }}"
+        src: ~/.tmux/.tmux.conf.local
+        dest: ~/.tmux.conf.local
+        remote_src: yes
+        force: no
+
+    - name: Define alias in current user for tmuxka = tmux kill all actives sessions in bashrc
+      lineinfile:
+        line: 'alias tmuxka=''tmux list-sessions | awk "BEGIN{FS=\":\"}{print \$1}" | xargs -n 1 tmux kill-session -t'''
+        regexp: 'tmux kill-session -t'
+        path: ~/.bashrc
+
+    - name: check if .shell_aliases sourced by .zshrc exists in user's home dir
+      stat:
+        path: "~{{ local_username }}/.shell_aliases"
+      register: shell_aliases
+
+    - name: Creating the shell_aliases file
+      file:
+        path: "~{{ local_username }}/.shell_aliases"
+        state: touch
+      when: not shell_aliases.stat.exists
+
+    - name: Define alias in current user for tmuxka = tmux kill all actives sessions in zshrc
+      lineinfile:
+        line: 'alias tmuxka=''tmux list-sessions | awk "BEGIN{FS=\":\"}{print \$1}" | xargs -n 1 tmux kill-session -t'''
+        regexp: 'tmux kill-session -t'
+        path: "~{{ local_username }}/.shell_aliases"
+#      when: shell_aliases.stat.exists
+
+    - name: Tunning Tmux-bash-completion for current user
+      get_url:
+        url: https://raw.githubusercontent.com/imomaliev/tmux-bash-completion/master/completions/tmux
+        dest: ~/.bash_completion
+
+    - name: ~/.tmux.conf.local tunning for current user for wheater integration
+      block:
+        - replace:
+            path: ~/.tmux.conf.local
+            regexp: '^tmux_conf_theme_status_right='
+            replace: '#tmux_conf_theme_status_right='
+
+        - blockinfile:
+            insertafter: '^#tmux_conf_theme_status_right='
+            dest: ~/.tmux.conf.local
+            backup: yes
+            block: |
+              set -g status-interval 60
+              #WEATHER='#(curl -m 1 wttr.in/Saint-Porquier?format="%%l:+%%c+%%t+>>%%f+%%w+%%p&period=60")'
+              WEATHER='#(curl -m 1 wttr.in/Saint-Porquier?format="4&period=60", sleep 600)'
+              tmux_conf_theme_status_right=" #{prefix}#{pairing}#{synchronized}$WEATHER#{?battery_status,#{battery_status},}#{?battery_bar, #{battery_bar},}#{?battery_percentage, #{battery_percentage},} , %R , %d %b | #{username_ssh}#{root} | #{hostname_ssh} "
+
+  become_user: "{{ local_username  }}"
+
+- name: tmux tunning for root user
+  block:
+    - name: Tunning Tmux conf for user root
+      blockinfile:
+        path: /root/.tmux.conf
+        state: present
+        create: yes
+        marker: "# {mark} Tmux RC tunning"
+        block: |
+          # Allow mouse interaction
+          # set-option -g mouse on
+
+          # Change prefix key to CTRL+A. "C-" stands for CTRL, "M-" stands for ALT key
+          set-option -g prefix C-a
+          unbind-key C-b
+          bind-key C-a send-prefix
+
+          # Display CPU load average for the last 1,5 and 15 minutes, in the status bar
+          set -g status-right "#(cut -d ' ' -f -3 /proc/loadavg) %H:%M %d-%b-%y"
+
+          #Chnage Scrollback limit from 2k to 10k
+          set-option -g history-limit 10000
+
 
 ...

@@ -1,0 +1,11 @@
+---
+
+url_kubernetes_gpg: "https://packages.cloud.google.com/apt/doc/apt-key.gpg"
+url_kubernetes_repo: "deb https://apt.kubernetes.io/ kubernetes-xenial main"
+kubernetes_packages:
+  - kubectl
+
+url_helm_key: "https://baltocdn.com/helm/signing.asc"
+url_helm_repo: "deb https://baltocdn.com/helm/stable/debian/ all main"
+helm_packages:
+  - helm

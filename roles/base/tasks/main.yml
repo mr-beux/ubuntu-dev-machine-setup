@@ -1,109 +1,219 @@
 ---
 
-# mount /tmp on tmpfs
-- block:
-    - name: clear the existing /tmp dir (1/5)
+## "'gnome-terminal' in ansible_facts.packages" == Desktop Grpahical Env = Gnome
+## "'xfce4-terminal' in ansible_facts.packages" == Desktop Grpahical Env = Xfce
+
+- name: Activate Canonical partners repository
+  replace:
+    path: /etc/apt/sources.list
+#    regexp: '^# deb http://archive.canonical.com/ubuntu bionic partner'
+    regexp: "^# deb http://archive.canonical.com/ubuntu {{ansible_distribution_release}} partner"
+    replace: "deb http://archive.canonical.com/ubuntu {{ansible_distribution_release}} partner"
+  when: ansible_os_family == "Debian"
+
+- name: Add PPA repository        #Collection of bleeding edge software, mandatory for Woeusb
+  apt_repository:
+    repo: "ppa:nilarimogard/webupd8"
+    state: present
+  when: ansible_os_family == "Debian"
+
+#- name: Add PPA repository for conky-manager
+#  apt_repository:
+#    repo: "ppa:teejee2008/ppa"6os7jSSxl91rIz7G7UbJbwrGDh6WxzCgN3zeqBwG
+#    state: present
+
+- name: Add PPA repository for tlpui
+  apt_repository:
+    repo: "ppa:linuxuprising/apps"
+    state: present
+  when: ansible_os_family == "Debian"
+
+- name: Add PPA repository for numix flat design icons
+  apt_repository:
+    repo: "ppa:numix/ppa"
+    state: present
+  when: ansible_os_family == "Debian"
+
+- name: Only run update_cache=yes if the last one is more than "{{ repo_manager_update_cache_valid_time }}" seconds ago
+  apt:
+    update_cache: yes
+    cache_valid_time: "{{ repo_manager_update_cache_valid_time }}"
+  when: ansible_os_family == "Debian"
+
+- name: Replace mount /tmp on tmpfs
+  block:
+    - name: Clear the existing /tmp dir (1/5)
       shell: "/bin/rm -rf *"
       args:
         chdir: /tmp
         warn: no
 
-    - name: copy systemd file (2/5)
+    - name: Copy systemd file (2/5)
       copy:
         src: /usr/share/systemd/tmp.mount
         dest: /lib/systemd/system/tmp.mount
         remote_src: True
 
-    - name: create dir /etc/systemd/system/tmp.mount.d (3/5)
+    - name: Create dir /etc/systemd/system/tmp.mount.d (3/5)
       file:
         path: /etc/systemd/system/tmp.mount.d
         state: directory
 
-    - name: create tmp.mount custom options file (4/5)
+    - name: Create tmp.mount custom options file (4/5)
       copy:
         dest: /etc/systemd/system/tmp.mount.d/options.conf
         content: |
           [Mount]
           Options=mode=1777,strictatime,nosuid,nodev,size=512M
 
-    - name: start and enable tmp.mount on boot (5/5)
+    - name: Start and enable tmp.mount on boot (5/5)
       systemd:
         name: tmp.mount
         enabled: yes
         state: started
         daemon_reload: yes
 
-- name: enable ufw firewall but allow ssh
+- name: Enable ufw firewall with allow ssh (only 6 or more connections in the last 30 seconds)
   ufw:
     rule: limit
     port: ssh
     proto: tcp
     state: enabled
 
-- name: disable system crash reports
+- name: Disable system crash reports
   lineinfile:
     dest: /etc/default/apport
     regexp: "^enabled=(0|1)"
     line: enabled=0
     state: present
 
-- name: tune system swappiness
+#Original Config = swappiness is set to 60, which means that the swap can be requested from 40% of RAM usage
+#The swappiness configures the frequency of the system to extract data from the RAM to put them in the swap.
+#The closer the value is to zero, the more the operations are managed by RAM, therefore processed quickly.
+#It is therefore necessary to indicate a fairly low value.
+- name: Tune system swappiness
   sysctl:
     name: vm.swappiness
-    value: '1'
+    value: '5'
     state: present
+    reload: yes
 
-- name: perform a dist upgrade
+#Original config = cache pressure = 100, no longer requests the VFS cache, which should streamline the use of applications
+#vfs_cache_pressure, which configures how much the system removes inode and dentry information from other data.
+#The original value is 100, we pass it to 50 to prevent the system from deleting information relating to inodes from the cache too quickly.
+- name: Set vm.vfs_cache_pressure to 50 in /etc/sysctl.conf
+  sysctl:
+    name: vm.vfs_cache_pressure
+    value: '50'
+    state: present
+    reload: yes
+
+- name: Install Mandatory tools for Debian for list installed packages
+  package:
+    name: "{{ base_developer_tools_debian }}"
+    state: present
+  when: ansible_os_family == "Debian"
+
+- name: Gather the package facts
+  package_facts:
+    manager: auto
+
+- name: Perform a dist upgrade
   apt:
     update_cache: yes
     upgrade: dist
     force_apt_get: yes
+  when: ansible_os_family == "Debian"
 
-- name: install archiving tools
+## Actually on 29/10/20 on xubuntu 20, woeusb : Depends: libwxgtk3.0-0v5 (>= 3.0.4+dfsg) but it is not installable
+- name: Install libwxgtk manually (dependancy for woeusb)
   apt:
+    deb: http://mirrors.kernel.org/ubuntu/pool/universe/w/wxwidgets3.0/libwxgtk3.0-0v5_3.0.4+dfsg-3_amd64.deb
+  when:
+    - "'libwxgtk3.0-0v5' not in ansible_facts.packages"
+    - ansible_os_family == "Debian"
+
+- name: Install archiving tools
+  package:
     name: "{{ base_archiving_tools }}"
     state: present
-    force_apt_get: yes
 
-- name: install productivity tools
-  apt:
+- name: Install archiving tools for Gnome
+  package:
+    name: "{{ base_archiving_tools_gnome }}"
+    state: present
+  when: "'gnome-terminal' in ansible_facts.packages"
+
+- name: Install productivity tools
+  package:
     name: "{{ base_productivity_tools }}"
     state: present
-    force_apt_get: yes
 
-- name: install system tools
-  apt:
+- name: Install desktop tools
+  package:
+    name: "{{ base_desktop_tools }}"
+    state: present
+
+- name: Install system tools
+  package:
     name: "{{ base_system_tools }}"
     state: present
-    force_apt_get: yes
 
-- name: install system tools for laptop
-  apt:
+- name: Install system tools for Gnome
+  package:
+    name: "{{ base_system_tools_gnome }}"
+    state: present
+  when: "'gnome-terminal' in ansible_facts.packages"
+
+- name: Install system tools for laptop
+  package:
     name: "{{ base_system_tools_laptop }}"
     state: present
-    force_apt_get: yes
   when: laptop_mode
 
-- name: install developer tools
-  apt:
+- name: Install specific packages for Intel Platform
+  package:
+    name: "{{ base_hardware }}"
+    state: present
+  when:
+    - not virtual_machine_mode
+    - '"GenuineIntel" in ansible_processor'
+
+- name: Install proprietary NVidia Driver
+  command: ubuntu-drivers autoinstall
+  tags: proprietary_drivers
+
+- name: Install download tools
+  package:
+    name: "{{ base_download_tools }}"
+    state: present
+
+- name: Install developer tools
+  package:
     name: "{{ base_developer_tools }}"
     state: present
-    force_apt_get: yes
+
+- name: Install developer tools for Gnome
+  package:
+    name: "{{ base_developer_tools_gnome }}"
+    state: present
+  when: "'gnome-terminal' in ansible_facts.packages"
 
 # Fix for bat syntax highlighting tool; Ubuntu packages it as batcat instead of just bat
-- name: create symlink for bat
+- name: Create symlink for bat
   file:
     src: /usr/bin/batcat
     dest: /usr/bin/bat
     state: link
     force: no
 
-- name: set nc to point to nmap's netcat implementation
+- name: Set nc to point to nmap's netcat implementation
   alternatives:
     name: nc
     path: /usr/bin/ncat
 
-- block:
+- name: Configure golang
+  block:
     - name: Create directories for golang
       file:
         path: "~{{ local_username }}/{{ item }}"
@@ -113,7 +223,7 @@
         - go/src
         - go/bin
 
-    - name: Make GOPATH available in .bashrc
+    - name: Make GOPATH available in .bashrc for current user
       lineinfile:
         path: "~{{ local_username }}/.bashrc"
         line: "{{ item }}"
@@ -121,63 +231,178 @@
       with_items:
         - export GOPATH=$HOME/go
         - export PATH=$PATH:$GOPATH/bin
-  become: yes
   become_user: "{{ local_username }}"
 
-- name: install download tools
-  apt:
-    name: "{{ base_download_tools }}"
-    state: present
-    force_apt_get: yes
-
-- name: install media packages
-  apt:
+- name: Install media packages
+  package:
     name: "{{ base_media_tools }}"
     state: present
-    force_apt_get: yes
 
-- name: install bash git prompt
+- name: Install media packages for Gnome
+  package:
+    name: "{{ base_media_tools_gnome }}"
+    state: present
+  when: "'gnome-terminal' in ansible_facts.packages"
+
+- name: Install Languages packages
+  package:
+    name: "{{ base_language_tools }}"
+    state: present
+  when: install_specific_languages
+
+- name: Install xfce packages
+  package:
+    name: "{{ base_xfce_tunning_tools }}"
+    state: present
+  environment:
+    ACCEPT_EULA: 'y'
+  when: "'xfce4-terminal' in ansible_facts.packages"
+
+- name: Install bash git prompt for current user
   git:
     repo: "{{ base_git_bash_prompt_url }}"
     dest: "~{{ local_username }}/.bash-helpers/bash-git-prompt"
     version: master
     clone: yes
     update: yes
-  become: yes
   become_user: "{{ local_username }}"
 
 - block:
-    - name: install virtualization tools
-      apt:
-        name: "{{ base_virtualization_tools }}"
-        state: present
-        force_apt_get: yes
+  - name: Configure Git mail account
+    git_config:
+      name: user.email
+      scope: global
+      value: "{{ git_mail_user_account }}"
 
-    # add user to docker group to run docker commands without sudo
-    # add user to vboxusers group so that user can attach usb devices to guest OS
-    - name: add user to docker and vboxusers groups
-      user:
-        name: "{{ local_username }}"
-        append: yes
-        groups:
-          - docker
-          - vboxusers
+  - name: Configure Git account name
+    git_config:
+      name: user.name
+      scope: global
+      value: "{{ git_account_name }}"
 
-#    - name: install virtualbox extensions pack
-#      shell: echo 'y' | vboxmanage extpack install --replace /usr/share/virtualbox-ext-pack/Oracle*
-  when: not virtual_machine_mode
+  - name: Configure git core editor = vim
+    community.general.git_config:
+      name: core.editor
+      scope: global
+      value: vim
+
+  - name: Configure git alias lg
+    git_config:
+      name: alias.lg
+      scope: global
+      value: log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+  become_user: "{{ local_username }}"
+
+- name: Set default text editor to vim
+  alternatives:
+    name: editor
+    path: /usr/bin/vim.basic
+
+- name: Install Python pip modules
+  pip:
+    name: "{{ base_python_pip_modules }}"
+  tags: pip_modules
 
 - block:
-    - name: install openssh-server package (1/2)
+    - name: Install openssh-server package (1/2)
       apt:
         name: "{{ base_openssh_server.apt_package }}"
         state: present
-        force_apt_get: yes
-    - name: enable and start ssh (2/2)
+
+    - name: Enable and start ssh (2/2)
       service:
         name: "{{ base_openssh_server.service }}"
         state: started
         enabled: yes
-  when: not laptop_mode
+  when: not laptop_mode and (ansible_os_family == "Debian")
+
+- name: Define 1s in Grub Delay choice
+  replace: dest=/etc/default/grub regexp="^(GRUB_TIMEOUT)=[0-9]*$" replace="\1=1"
+  notify:
+    - Update Grub2 config file
+
+- name: Replace gzip via pigz
+  blockinfile:
+    path: ~/.bashrc
+    state: present
+    create: yes
+    marker: "# {mark} Ansible Replace gzip via pigz"
+    block: |
+      #Use pigz instead of gzip
+        ###
+        function gzip(){
+        pigz $@
+        }
+        export -f gzip
+
+        function gunzip(){
+        unpigz $@
+        }
+        export -f gunzip
+
+- name: Deploy redshift configuration for current user
+  copy:
+    src: redshift.conf
+    dest: ~/.config/redshift.conf
+  become_user: "{{ local_username }}"
+
+- name: Active geolocalization for redshift
+  blockinfile:
+    path: /etc/geoclue/geoclue.conf
+    state: present
+    create: yes
+    marker: "# {mark} Active geolocalization for redshift"
+    block: |
+      [redshift]
+      allowed=true
+      system=false
+      users=
+
+- name: Deploy plank configuration menu entry
+  block:
+    - name: Check configuration app directory
+      stat:
+        path: ~/.local/share/applications
+      register: apps_path_dir
+
+    - name: "Ansible Create configuration app directory if not exists"
+      file:
+        path: ~/.local/share/applications
+        state: directory
+      when: apps_path_dir.stat.exists == false
+
+    - name: Copy plank configuration menu entry file
+      copy:
+        src: plank-preferences.desktop
+        dest: ~/.local/share/applications/plank-preferences.desktop
+  become_user: "{{ local_username }}"
+
+#Not like this now, cf https://doc.ubuntu-fr.org/redshift#comment_lancer_redshift_automatiquement_au_demarrage
+#- name: Active redshift on startUp for current user
+#  copy:
+#    src: redshift-gtk.desktop
+#    dest: ~/.config/autostart/redshift-gtk.desktop
+#  become_user: "{{ local_username }}"
+
+#- name: 'Optimise mount point for SSD (Ovoid ReWritting with noatime)'
+
+#- name:  Noatime option for your SSD sdb2 ext4 mount point
+#  ansible.posix.mount:
+#    path: /boot
+#    opts: noatime
+#    state: remounted
+#
+#- name:  Noatime option for your SSD sdb1 vfat mount point
+#  ansible.posix.mount:
+#    path: /boot/efi
+#    opts: noatime
+#    state: remounted
+#
+#- name: Noatime option for your SSD sdb3 lvm over lucks ext4 mount point
+#  ansible.posix.mount:
+#    path: /
+#    opts: noatime
+#    state: present
+
 
 ...

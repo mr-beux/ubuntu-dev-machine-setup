@@ -1,0 +1,54 @@
+---
+
+- name: Add Kubernetes = Google Apt signing key
+  apt_key:
+    url: "{{ url_kubernetes_gpg }}"
+    state: present
+  when: ansible_os_family == "Debian"
+
+- name: Add Kubernetes repository into sources list
+  apt_repository:
+    repo: "{{ url_kubernetes_repo }}"
+    state: present
+  when: ansible_os_family == "Debian"
+
+- name: Add Helm signing key
+  apt_key:
+    url: "{{ url_helm_key }}"
+    state: present
+  when: ansible_os_family == "Debian"
+
+- name: Add Helm repository into sources list
+  apt_repository:
+    repo: "{{ url_helm_repo }}"
+    state: present
+  when: ansible_os_family == "Debian"
+
+- name: Install Kubernetes Client Package
+  package:
+    name: "{{ kubernetes_packages }}"
+    state: present
+
+- name: Install Helm Client Package
+  package:
+    name: "{{ helm_packages }}"
+    state: present
+
+- name: Kubectl zsh auto completion
+  blockinfile:
+    marker: "# {mark} Kubectl zsh auto completion"
+    path: ~/.zshrc
+    block: |
+      #autocompletion for kubectl
+      source <(kubectl completion zsh)
+  become_user: "{{ local_username }}"
+
+- name: Helm zsh auto completion
+  blockinfile:
+    marker: "# {mark} Helm zsh auto completion"
+    path: ~/.zshrc
+    block: |
+      #autocompletion for helm
+      source <(helm completion zsh)
+  become_user: "{{ local_username }}"
+...

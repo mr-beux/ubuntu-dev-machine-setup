@@ -1,0 +1,6 @@
+---
+
+- name: Update Grub2 config file
+  shell: update-grub
+
+...

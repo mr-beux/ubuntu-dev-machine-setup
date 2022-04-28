@@ -1,0 +1,4 @@
+---
+
+terraform_client_tools:
+  - terraform                       #Atom text editor from GitHub

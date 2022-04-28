@@ -1,15 +1,9 @@
 ---
 
 - name: install privacy packages
-  apt:
+  package:
     name: "{{ privacy_packages }}"
     state: present
-    force_apt_get: yes
-
-# this is needed for checking if certain packages are installed
-- name: gather package facts
-  package_facts:
-    manager: auto
 
 - block:
     - name: copy torrc file

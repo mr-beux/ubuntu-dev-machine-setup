@@ -1,0 +1,7 @@
+---
+
+- hosts: localhost
+  roles:
+    - sweethome3d
+
+...

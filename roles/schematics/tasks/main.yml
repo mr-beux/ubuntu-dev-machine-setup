@@ -1,0 +1,8 @@
+---
+
+- name: Install Schematics Package
+  package:
+    name: "{{ schematcis_packages }}"
+    state: present
+
+...

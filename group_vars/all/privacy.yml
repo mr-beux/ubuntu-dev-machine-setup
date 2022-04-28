@@ -1,8 +1,9 @@
 ---
 
 privacy_packages:
-  - mat2
-  - proxychains4
-  - tor
+  - mat2                      #Metadata anonymisation toolkit v2
+  - proxychains4              #Redirect connections through socks/http proxies
+  - tor                       #redirect connections through socks/http proxies
+  - tor-geoipdb               #GeoIP database for Tor
 
 ...

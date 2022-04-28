@@ -1,0 +1,6 @@
+---
+
+- name: refresh fonts cache
+  shell: "fc-cache -fv"
+
+...

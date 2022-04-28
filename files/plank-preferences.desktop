@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=Plank préférences
+Comment=Préférences du dock plank
+Exec=plank --preferences
+Icon=plank
+Terminal=false
+Type=Application
+Categories=Settings;
+StartupNotify=false

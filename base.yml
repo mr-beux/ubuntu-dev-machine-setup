@@ -3,5 +3,19 @@
 - hosts: localhost
   roles:
     - base
+  vars_prompt:
+    - name: git_mail_user_account
+      prompt: What is your email for git account ?
+      private: no
 
+    - name: git_account_name
+      prompt: What is Git account username ?
+      private: no
+
+#    - name: git_account_passwd
+#      prompt: What is Git account password ?
+#      private: yes
+#      encrypt: sha512_crypt
+#      confirm: yes
+#      salt_size: 7
 ...

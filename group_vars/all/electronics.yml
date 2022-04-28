@@ -1,0 +1,16 @@
+---
+
+electronics_arduino_tools:
+  - arduino                             #IDE and libraries for arduino board via snap
+
+electronics_tools:
+  - flashrom                            #Identify, read, write, erase, and verify BIOS/ROM/flash chips
+  - simulide                            #Simple real time electronic circuit simulator
+  - avrdude                             #Atmel AVR microcontroller programmer for Arduino Mega 2560 board
+  - minicom                             #Serial port terminal/concentrator system
+  - cutecom                             #GUI Serail Terminal, similary to Minicom
+
+electronics_schematic_tools:
+  - qelectrotech                        #Electric schematic editor
+
+...

@@ -1,0 +1,62 @@
+---
+
+- name: Create Webdav mount point
+  file:
+    path: "/media/{{ ansible_user_id }}/webdav"
+    state: directory
+    mode: '0755'
+    owner: "{{ ansible_user_id }}"
+    group: "{{ ansible_user_id }}"
+  become: yes
+
+- name: Configure Webdav User
+  user:
+    name: "{{ ansible_user_id }}"
+    group: davfs2
+  become: yes
+
+- name: Create Webdav config directory
+  file:
+    path: ~/.davfs2
+    state: directory
+
+- name: Create Webdav config files
+  copy:
+    src: /etc/davfs2/davfs2.conf
+    dest: ~/.davfs2
+    remote_src: yes
+    force: no
+
+- name: Create Webdav config files
+  copy:
+    src: /etc/davfs2/secrets
+    dest: ~/.davfs2
+    remote_src: yes
+    force: no
+  become: yes
+
+- name: Config Webdav config files
+  file:
+    path: "/home/{{ ansible_user_id }}/.davfs2/secrets"
+    state: file
+    owner: "{{ ansible_user_id }}"
+    group: "{{ ansible_user_id }}"
+  become: yes
+
+- name: Config Webdav fstab entry
+  mount:
+    path: "/media/{{ ansible_user_id }}/webdav"
+    src: "https://{{ dyndnsrecord }}:{{ davfs2_port_wan }}"
+    fstype: davfs
+    opts: rw,user,noauto
+    state: present
+  become : yes
+
+- name: Config Webdav credentials
+  lineinfile:
+    backup: yes
+    line: "/media/{{ ansible_user_id }}/webdav      {{ ansible_user_id }}    {{ webdav_password }}"
+    regexp: "/media/{{ ansible_user_id }}/webdav"
+    path: ~/.davfs2/secrets
+
+...
