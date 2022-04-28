@@ -79,6 +79,7 @@ I am a Linux Systems Engineer and my daily job include working with various conf
 Summary of packages that get installed and configured:
 
 - Archiving tools like zip, rar, etc
+- Office productivity suite like libreoffice
 - Customization tools like gnome-tweak-tool, etc
 - Power management tools like [TLP](https://github.com/linrunner/TLP)
 - Download utils like aria2, wget, axel, etc
@@ -111,10 +112,3 @@ Summary of packages that get installed and configured:
 
 You are more than welcome to send any pull requests. However, the intention of this repo is to suit my development needs. So it might be better if you *fork* this repo instead for your own needs and personalization.
 
-## Donations
-
-Bitcoin (BTC): `38uvDLV4GzcAB7qMUEM5chqivESqNPWPZW`
-
-Ethereum (ETH): `0xb87A10e8e3fa4Ea71b478f8f0c8798977dBe28Ed`
-
-Litecoin (LTC):`MRAwH2WHUprCn5RcpKWKMkfaUJicTpsbWr` or `3Jxny96KXhzmya9iiSWyY7RB9c8AXRGN3n`
