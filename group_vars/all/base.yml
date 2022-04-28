@@ -1,10 +1,5 @@
 ---
 
-#git_mail_user_account:   "mr.beux@hotmail.fr"
-#git_account_name: "Beux"
-git_mail_user_account:   "benoit.albiac@inrae.fr"
-git_account_name: "Benoit ALBIAC"
-
 base_archiving_tools:
   - arj                                 #Archiver for .arj files
   - cabextract                          #Extractor Microsoft cabinet files, also called .CAB files

@@ -2,7 +2,7 @@
 
 - name: Create Webdav mount point
   file:
-    path: /media/beux/webdav
+    path: "/media/{{ ansible_user_id }}/webdav"
     state: directory
     mode: '0755'
     owner: "{{ ansible_user_id }}"
@@ -45,7 +45,7 @@
 
 - name: Config Webdav fstab entry
   mount:
-    path: /media/beux/webdav
+    path: "/media/{{ ansible_user_id }}/webdav"
     src: "https://{{ dyndnsrecord }}:{{ davfs2_port_wan }}"
     fstype: davfs
     opts: rw,user,noauto
@@ -55,8 +55,8 @@
 - name: Config Webdav credentials
   lineinfile:
     backup: yes
-    line: "/media/beux/webdav      beux    {{ beux_pwd }}" xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-    regexp: "/media/beux/webdav"
+    line: "/media/{{ ansible_user_id }}/webdav      {{ ansible_user_id }}    {{ webdav_password }}"
+    regexp: "/media/{{ ansible_user_id }}/webdav"
     path: ~/.davfs2/secrets
 
 ...
