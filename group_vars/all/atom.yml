@@ -12,6 +12,9 @@ atom_plugins:
   - linter                              #Affiche les erreurs dans votre code
   - linter-flake8                       #Atom linter plugin for Python, using flake8
   - linter-ui-default                   #Default UI for the Linter package
+  - linter-yaml                         #YAML provider for Linter
+  - linter-scss-lint                    #Lint SCSS on the fly, using scss-lint
+  - linter-sass-lint                    #Atom Linter plugin to lint your Sass/SCSS with pure node sass-lint
   - french-menu                         #Your favorite text and code editor is now available in French within a package !
   - highlight-selected                  #Highlights the current word selected when double clicking
   - highlight-line                      #Highlights the current line in the editor
@@ -27,7 +30,5 @@ atom_plugins:
   - git-time-machine                    #Visually interact with git commit history for a file
   - merge-conflicts                     #Resolve git conflicts within Atom
   - language-ansible                    #Ansible syntax package
-  - linter-scss-lint                    #Lint SCSS on the fly, using scss-lint 
-  - linter-sass-lint                    #Atom Linter plugin to lint your Sass/SCSS with pure node sass-lint
 
 ...
