@@ -14,6 +14,7 @@ vscode_extensions:
   - yzhang.markdown-all-in-one
   - PKief.material-icon-theme
   - ms-python.python
+  - ms-python.vscode-pylance
   - humao.rest-client
   - Gruntfuggly.todo-tree
   - shardulm94.trailing-spaces
@@ -23,5 +24,10 @@ vscode_extensions:
   - wayou.vscode-todo-highlight
   - visualstudioexptteam.vscodeintellicode
   - redhat.ansible
-
+  - ms-azuretools.vscode-docker
+  - vscode-icons-team.vscode-icons
+  - esbenp.prettier-vscode
+  - redhat.vscode-yaml
+  - danielroedl.meld-diff
+  
 ...

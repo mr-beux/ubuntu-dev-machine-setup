@@ -64,6 +64,7 @@ base_system_tools:
   - needrestart                         #Check which daemons need to be restarted after library upgrades
   - netcat                              #TCP/IP swiss army knife -- transitional package = netcat-traditional - TCP/IP swiss army knife
   - netcat-openbsd                      #TCP/IP swiss army knife, OpenBSD rewrite of netcat, including support for IPv6, proxies, and Unix sockets.
+  - nmon                                #Performance monitoring tool for Linux
   - openvswitch-switch                  #Open vSwitch switch implementations
   - linux-tools-generic                 #Linux kernel version generic tools for latest installed kernel
  # - linux-tools-{{ ansible_kernel }}    #Linux kernel version generic tools for kernel in use
@@ -72,6 +73,7 @@ base_system_tools:
   - pwgen                               #Password generator
   - redshift-gtk                        #Adjusts the color temperature of your screen with GTK+ integration
   - remmina                             #GTK+ Remote Desktop Client
+  - ripgrep                             #Recursively searches directories for a regex pattern
   - samba                               #SMB/CIFS file, print, and login server for Unix
   - smbclient                           #Command-line SMB/CIFS clients for Unix
   - screen                              #Terminal multiplexer with VT100/ANSI terminal emulation
@@ -123,6 +125,7 @@ base_download_tools:
   - axel                                #Light command line download accelerator
   - qbittorrent                         #Bittorrent client based on libtorrent-rasterbar
   - speedtest-cli                       #Testing internet bandwidth using speedtest.net
+  - transmission                        #Lightweight BitTorrent client
   - wget                                #Retrieving files using HTTP, HTTPS, FTP and FTPS, the most widely used Internet protocols
   - youtube-dl                          #Download videos from YouTube.com and a few more sites
 
@@ -133,12 +136,16 @@ base_developer_tools:
   - ansible-lint                        #Lint tool for Ansible playbooks
   - awscli                              #Unified command line interface to many Amazon Web Services
   - bat                                 #Cat clone with syntax highlighting and git integration, Ubuntu > 19.10 is mandatory
+  - bpython                             #Fancy interface to the Python 3 interpreter
+  - black                               #Uncompromising Python code formatter (Python 3)
   - cloc                                #Statistics utility to count lines of code
   - clusterssh                          #Administer multiple ssh or rsh shells simultaneously
   - colordiff                           #Tool to colorize 'diff' output
+  - csvkit                              #Command-line tools for working with CSV
   - curl                                #Command line tool for transferring data with URL syntax
   - default-jre-headless                #Standard Java or Java compatible Runtime (headless)
   - dos2unix                            #Convert text file line endings between CRLF and LF
+  - entr                                #Run arbitrary commands when files change
   - expect                              #Automates interactive applications
   - fonts-powerline                     #Prompt and statusline utility (symbols font)
   - g++                                 #GNU C++ compiler, a fairly portable optimizing compiler for C++.
@@ -156,6 +163,7 @@ base_developer_tools:
   - makeself                            #Utility to generate self-extractable archives
   - meld                                #Graphical tool to diff and merge files
   - miller                              #Name-indexed data processing tool
+  - moreutils                           #additional Unix utilities
   - most                                #Pager program similar to more and less
   - nodejs                              #Evented I/O for V8 javascript - runtime executable
   - pandoc                              #General markup converter
@@ -165,7 +173,7 @@ base_developer_tools:
   - powerline                           #Prompt and statusline utility
   - pry                                 #Powerful irb alternative and runtime developer console
   - pssh                                #Parallel versions of SSH-based tools
-  #- puppet                              #Configuration management system
+  - puppet                              #Configuration management system
   - puppet-lint                         #Check puppet manifests for style guide conformity
   - pv                                  #Shell pipeline element to meter data passing through
   - pylint                              #Python code static checker and UML diagram generator

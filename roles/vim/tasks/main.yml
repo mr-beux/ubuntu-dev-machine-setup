@@ -16,4 +16,25 @@
       shell: "sh ~/.vim_runtime/install_awesome_vimrc.sh"
   become_user: "{{ local_username }}"
 
+- name: Install indentLine plugin
+      git:
+        repo: "{{ vim_indentline_plugin_url }}"
+        dest: "~{{ local_username }}/.vim_runtime/my_plugins/indentLine"
+  become_user: "{{ local_username }}"
+
+- block:
+    - name: create vim undo directory
+      file:
+        path: "~{{ local_username }}/.vim/undodir"
+        state: directory
+        mode: '0775'
+
+    - name: add custom vim config
+      copy:
+        src: my_configs.vim
+        dest: "~{{ local_username }}/.vim_runtime/my_configs.vim"
+        mode: '0644'
+        force: yes
+        backup: yes
+
 ...
