@@ -73,6 +73,11 @@
         state: started
         daemon_reload: yes
 
+- name: Set default text editor to vim
+  alternatives:
+    name: editor
+    path: /usr/bin/vim.basic
+
 - name: Enable ufw firewall with allow ssh (only 6 or more connections in the last 30 seconds)
   ufw:
     rule: limit

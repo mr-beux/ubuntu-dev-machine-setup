@@ -31,4 +31,7 @@ security_android_Mobile_Verification_Toolkit:
   - sqlite3                             #Command line interface for SQLite 3
   - android-sdk                         #Software development kit for Android platform
 
+snap_security_tools:
+  - hushboard                           #Mute your microphone while you’re typing
+  
 ...
