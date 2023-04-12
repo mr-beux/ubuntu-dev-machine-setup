@@ -9,7 +9,8 @@ security_packages:
   - zulucrypt-gui                       #interface graphique pour zulucrypt-cli
   - keychain                            #key manager for OpenSSH
   - rsh-client                          #Client programs for remote shell connections
-  - nmap
+  - nmap                                #Cartographe de réseau
+  - libsecret-tools                     #tool for storing and retrieving GObject passwords
 
 antivirus_packages:
   - clamtk                              #Graphical front-end for ClamAV
