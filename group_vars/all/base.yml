@@ -29,6 +29,7 @@ base_productivity_tools:
 base_desktop_tools:
   - shotwell                            #Digital photo organizer
   - krita                               #Pixel-based image manipulation program
+  - nextcloud-desktop                   #Nextcloud folder synchronization tool
 
 base_system_tools:
   - atop                                #Monitor for system resources and process activity
@@ -83,6 +84,7 @@ base_system_tools:
   - sysdig                              #System-level exploration and troubleshooting tool
   - sysdig-dkms                         #System-level exploration and troubleshooting tool - kernel source
   - tmux                                #Terminal multiplexer
+  - tox                                 #virtualenv-based automation of test activities
   - woeusb                              #Tool for creating usb stick windows installer from an iso image or a real DVD
   - xclip                               #Command line interface to X selections, used for tmux
 ###Not usefull on desktop, usefull on Server version

@@ -5,4 +5,14 @@
     name: "{{ sweethome3d_packages }}"
     state: present
 
+- name: sweethome3d via snap = more recent
+  snap:
+    name: "{{ sweethome3d_snap }}"
+    state: present
+
+#https://snapcraft.io/docs/home-interface
+- name: Give "{{ sweethome3d_snap }}" acees to /media, /run/media and /mnt
+  ansible.builtin.command:
+    cmd: "snap connect sweethome3d-homedesign:removable-media"
+
 ...
