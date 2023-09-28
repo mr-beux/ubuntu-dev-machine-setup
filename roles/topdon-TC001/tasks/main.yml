@@ -1,0 +1,17 @@
+---
+
+#https://github.com/leswright1977/PyThermalCamera
+- name: Git clone repo
+  ansible.builtin.git:
+    repo: https://github.com/leswright1977/PyThermalCamera.git
+    dest: "/media/bitlockermount/Virtu at home V2/Ansible/"
+
+- name: Install mandatory Package
+  package:
+    name: "{{ topdon_tc001_packages }}"
+    state: present
+
+#v4l2-ctl --list-devices
+#python3 tc001v4.2.py --device 2
+
+...

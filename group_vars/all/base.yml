@@ -231,6 +231,7 @@ base_media_tools:
   - openshot                            #Create and edit videos and movies (transitional package)
   - openshot-doc                        #Documentation for openshot-qt (transitional package)
   - handbrake                           #Versatile DVD ripper and video transcoder (GTK+ GUI)
+  - mtp-tools                           #Media Transfer Protocol (MTP) library tools for Android
 
 base_media_tools_gnome:
   - soundconverter                      #GNOME application to convert audio files into other formats
