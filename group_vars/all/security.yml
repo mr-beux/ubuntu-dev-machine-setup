@@ -11,8 +11,9 @@ security_packages:
   - rsh-client                          #Client programs for remote shell connections
   - nmap                                #The Network Mapper
   - nmap-common                         #Architecture independent files for nmap
+  - ncat                                #NMAP netcat reimplementation
   - libsecret-tools                     #tool for storing and retrieving GObject passwords
-  - printer-driver-gutenprint           #printer drivers for CUPS
+  - firejail                            #Sandbox to restrict the application environment
 
 antivirus_packages:
   - clamtk                              #Graphical front-end for ClamAV

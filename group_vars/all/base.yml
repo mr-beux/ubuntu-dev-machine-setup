@@ -47,8 +47,9 @@ base_system_tools:
   - efibootmgr                          #Interact with the EFI Boot Manager
   - f3                                  #Test real flash memory capacity
   - fatrace                             #Report system wide file access events
+  - jdupes                              #Identify and delete or link duplicate files
   - flatpak                             #Application deployment framework for desktop apps
-  - gparted                             #GNOME partition editor
+  - gufw                                #Graphical user interface for ufw
   - htop                                #Interactive processes viewer
   - iftop                               #Displays bandwidth usage information on an network interface
   - iotop                               #Simple top-like I/O monitor
@@ -60,7 +61,7 @@ base_system_tools:
   - mtr                                 #Full screen ncurses and X11 traceroute tool
   - makepasswd                          #Generate and encrypt passwords
 ##Not Available on *ubuntu 20.04  - namebench                           #DNS benchmark utility
-  - ncat                                #NMAP netcat reimplementation
+  - nala                                # alternative package management tool to apt/apt-get
   - ncdu                                #Ncurses disk usage viewer
   - needrestart                         #Check which daemons need to be restarted after library upgrades
   - netcat                              #TCP/IP swiss army knife -- transitional package = netcat-traditional - TCP/IP swiss army knife
@@ -70,6 +71,7 @@ base_system_tools:
   - linux-tools-generic                 #Linux kernel version generic tools for latest installed kernel
  # - linux-tools-{{ ansible_kernel }}    #Linux kernel version generic tools for kernel in use
   - ppa-purge                           #Disables a PPA and reverts to official packages
+  - printer-driver-gutenprint           #printer drivers for CUPS  
   - progress                            #Coreutils Progress Viewer (formerly known as 'cv')
   - pwgen                               #Password generator
   - redshift-gtk                        #Adjusts the color temperature of your screen with GTK+ integration
@@ -132,6 +134,7 @@ base_download_tools:
   - youtube-dl                          #Download videos from YouTube.com and a few more sites
 
 base_developer_tools:
+  - 2to3                                # 2to3 binary using python3
   - android-tools-adb                   #Android Debug Bridge
   - android-tools-fastboot              #Android fastboot tool
   - ansible                             #Configuration management, deployment, and task execution system
@@ -150,6 +153,7 @@ base_developer_tools:
   - entr                                #Run arbitrary commands when files change
   - expect                              #Automates interactive applications
   - fonts-powerline                     #Prompt and statusline utility (symbols font)
+  - fzf                                 #General-purpose command-line fuzzy finder
   - g++                                 #GNU C++ compiler, a fairly portable optimizing compiler for C++.
   - geoip-bin                           #IP lookup command line tools that use the GeoIP library
   - ghostwriter                         #Distraction-free, themeable Markdown editor
@@ -166,25 +170,31 @@ base_developer_tools:
   - meld                                #Graphical tool to diff and merge files
   - miller                              #Name-indexed data processing tool
   - moreutils                           #additional Unix utilities
+  - mssh                                #Tool to administrate multiple servers at once
   - most                                #Pager program similar to more and less
   - nodejs                              #Evented I/O for V8 javascript - runtime executable
   - pandoc                              #General markup converter
   - parallel                            #Build and execute command lines from standard input in parallel
+  - pcre2-utils                         #New Perl Compatible Regular Expression Library - utilities
   - pep8                                #Python PEP 8 code style checker - transitional package
   - pipenv                              #Python's officially recommended packaging tool
   - powerline                           #Prompt and statusline utility
   - pry                                 #Powerful irb alternative and runtime developer console
   - pssh                                #Parallel versions of SSH-based tools
-  - puppet                              #Configuration management system
+  - ptpython                            #Alternative Python Prompt with auto-completion and syntax highlighting
+  #- puppet                              #Configuration management system
   - puppet-lint                         #Check puppet manifests for style guide conformity
   - pv                                  #Shell pipeline element to meter data passing through
   - pylint                              #Python code static checker and UML diagram generator
+  - python3-cachecontrol                #Caching algorithms in httplib2 for use with requests
   - python3-coverage                    #Code coverage tool for Python 3
   - python3-demjson                     #Encoder, decoder, and lint/validator for JSON in Python (python3) provides jsonlint-py3 for json lint
   - python3-jmespath                    #JSON Matching Expressions (Python 3)
   - python3-pep8                        #Python PEP 8 code style checker - Python 3
   - python3-pip                         #Python package installer
-  - python3-venv
+  - python3-venv                        #Venv module for python3 (default python3 version)
+  - python3-poetry                      #Python dependency management and packaging made easy (Python 3)
+  - rclone                              #Rsync for commercial cloud storage
   - ranger                              #Console File Manager with VI Key Bindings
   - recode                              #Character set conversion utility
   - remmina                             #GTK+ Remote Desktop Client
@@ -196,6 +206,8 @@ base_developer_tools:
   - socat                               #Multipurpose relay for bidirectional data transfer
   - sshfs                               #Filesystem client based on SSH File Transfer Protocol
   - sshpass                             #Non-interactive ssh password authentication
+  - sshuttle                            #Transparent proxy server for VPN over SSH
+  - tig                                 # ncurses-based text-mode interface for Git
   - tldr                                #Haskell tldr client
   - tmux                                #Terminal multiplexer
   - tmuxp                               #Tmux session manager

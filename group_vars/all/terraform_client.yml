@@ -1,4 +1,8 @@
 ---
 
+hashicorp_repo_jammy: "deb [arch=amd64] https://apt.releases.hashicorp.com {{ansible_distribution_release}} main"
+hashicorp_apt_key_url: "https://apt.releases.hashicorp.com/gpg"
+hashicorp_apt_key_keyring: "/etc/apt/trusted.gpg.d/hashicorp.gpg"
+
 terraform_client_tools:
   - terraform                       #Atom text editor from GitHub
