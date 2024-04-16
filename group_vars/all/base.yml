@@ -160,6 +160,7 @@ base_developer_tools:
   - git                                 #Fast, scalable, distributed revision control system
   - git-extras                          #Extra commands for git
   - gitg                                #Git repository viewer
+  - gitflow                             #Git extension to provide a high-level branching model
   - golang-go                           #Go programming language compiler, linker, compiled stdlib
   - httpie                              #CLI, cURL-like tool for humans
   - inotify-tools                       #Command-line programs providing a simple interface to inotify
